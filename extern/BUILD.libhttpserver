@@ -1,0 +1,58 @@
+cc_library(
+    name = "libhttpserver",
+    visibility = ["//visibility:public"],
+    srcs = [
+        "src/basic_auth_fail_response.cpp",
+        "src/deferred_response.cpp",
+        "src/digest_auth_fail_response.cpp",
+        "src/file_response.cpp",
+        "src/details/http_endpoint.cpp",
+        "src/http_request.cpp",
+        "src/http_utils.cpp",
+        "src/string_utilities.cpp",
+        "src/http_resource.cpp",
+        "src/http_response.cpp",
+        "src/string_response.cpp",
+        "src/webserver.cpp",
+    ],
+    hdrs = [
+        "src/gettext.h",
+        "src/httpserver.hpp",
+        "src/httpserver/basic_auth_fail_response.hpp",
+        "src/httpserver/create_webserver.hpp",
+        "src/httpserver/deferred_response.hpp",
+        "src/httpserver/details/http_endpoint.hpp",
+        "src/httpserver/details/modded_request.hpp",
+        "src/httpserver/digest_auth_fail_response.hpp",
+        "src/httpserver/file_response.hpp",
+        "src/httpserver/http_request.hpp",
+        "src/httpserver/http_resource.hpp",
+        "src/httpserver/http_response.hpp",
+        "src/httpserver/http_utils.hpp",
+        "src/httpserver/string_response.hpp",
+        "src/httpserver/string_utilities.hpp",
+        "src/httpserver/webserver.hpp",
+    ],
+    copts = [
+        "-fexceptions",
+        #"-lpthread",
+        #"-pthread",
+    ],
+    linkopts = [
+        "-pthread",
+        "-lgnutls",  # apt install libgnutls28-dev 
+    ],
+    includes = [
+        "src",
+    ],
+    local_defines = [
+        "HTTPSERVER_COMPILATION",
+        "MHD_NO_DEPRECATION",
+    ],
+    defines = [
+        "HAVE_GNUTLS",
+    ],
+    deps = [
+        "@org_gnu_microhttpd//:microhttpd",
+    ],
+)

@@ -1,0 +1,21 @@
+# Building this may need one or more of the following:
+# sudo apt-get install autotools-dev
+# sudo apt-get install autoconf
+# sudo apt-get install libtool
+# sudo apt-get install autopoint
+# sudo apt-get install libpthread-stubs0-dev
+
+load("@rules_foreign_cc//tools/build_defs:configure.bzl", "configure_make")
+configure_make(
+    name = "microhttpd",
+    lib_source = ".",
+    static_libraries = ["libmicrohttpd.a"],
+    configure_options = [
+        "--disable-doc",
+        "--disable-examples",
+        "--enable-messages",
+        "--with-gnutls",
+    ],
+    configure_env_vars = {"CFLAGS": "-Wno-error"},
+    visibility = ["//visibility:public"],
+)
