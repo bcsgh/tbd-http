@@ -27,6 +27,7 @@ cc_library(
     deps = [
         ":static_embed",
         "@com_github_etr_libhttpserver//:libhttpserver",
+        "@com_github_open_source_parsers_jsoncpp//:json",
     ],
 )
 

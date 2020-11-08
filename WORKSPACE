@@ -46,6 +46,15 @@ git_repository(
 
 #############################################
 new_git_repository(
+    name = "com_github_open_source_parsers_jsoncpp",
+    commit = "8954092f0af9538f3cde47aceb459dbe4d6e2241",  # current as of 2020/11/07
+    shallow_since = "1604698551 -0800",
+    remote = "git://github.com/open-source-parsers/jsoncpp.git",
+    build_file = "//:extern/BUILD.jsoncpp",
+)
+
+#############################################
+new_git_repository(
     name = "com_github_etr_libhttpserver",
     build_file = "//:extern/BUILD.libhttpserver",
     commit = "c9746044d4b5c849f2b484087e110dd2a6e55308",  # current as of 2020/11/07

@@ -4,6 +4,7 @@
 
 #include <httpserver.hpp>
 
+#include "json/json.h"
 #include "server/static_embed_emebed_data.h"
 
 namespace tbd_server {
@@ -33,9 +34,12 @@ class TbdServer_JSON : public httpserver::http_resource {
 };
 
 const std::shared_ptr<http_response> TbdServer_JSON::render(const http_request& req) {
+  Json::Value ret(Json::objectValue);
 
+  std::stringstream out;
+  out << ret;
   return std::shared_ptr<http_response>{new httpserver::string_response(
-      "{}", http_utils::http_ok, "application/json")};
+      out.str(), http_utils::http_ok, "application/json")};
 }
 
 }  // namespace
