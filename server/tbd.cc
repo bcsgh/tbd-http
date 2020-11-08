@@ -46,10 +46,11 @@ const std::shared_ptr<http_response> TbdServer_JSON::render(const http_request& 
 
 struct TbdServer::Impl {
   TbdServer_JSON json;
-  Static html;
+  Static html, js;
 
   Impl() :
-    html(std::string{server_main_html()}, "text/html") {}
+    html(std::string{server_main_html()}, "text/html"),
+    js(std::string{server_tbd_main_js_js()}, "text/javascript") {}
 };
 
 TbdServer::TbdServer() : impl_(new TbdServer::Impl) {}
@@ -58,6 +59,7 @@ TbdServer::~TbdServer() = default;
 void TbdServer::RegisterResources(httpserver::webserver *ws) {
   ws->register_resource("/", &impl_->html, true);
   ws->register_resource("/json", &impl_->json, true);
+  ws->register_resource("/tbd.js", &impl_->js, true);
 };
 
 } // namespace tbd_server

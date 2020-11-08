@@ -1,4 +1,5 @@
 load("@bazel_rules//cc_embed_data:cc_embed_data.bzl", "cc_embed_data")
+load("@io_bazel_rules_closure//closure:defs.bzl", "closure_js_library", "closure_js_binary")
 
 cc_binary(
     name = "server",
@@ -31,10 +32,25 @@ cc_library(
     ],
 )
 
+closure_js_library(
+    name = "tbd_js",
+    srcs = [
+        "tbd.js",
+        "tbd_main.js"
+    ],
+)
+
+closure_js_binary(
+    name = "tbd_main_js",
+    deps = [":tbd_js"],
+    entry_points = ["TBD.Start"],
+)
+
 cc_embed_data(
     name = "static_embed",
     namespace = "tbd_server",
     srcs = [
         "main.html",
+        "tbd_main_js.js",
     ],
 )

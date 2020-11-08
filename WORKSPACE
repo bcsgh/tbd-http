@@ -12,6 +12,22 @@ git_repository(
 load("@rules_foreign_cc//:workspace_definitions.bzl", "rules_foreign_cc_dependencies")
 rules_foreign_cc_dependencies([])
 
+# https://github.com/bazelbuild/rules_closure
+# TODO swith to git_repository()?
+http_archive(
+    name = "io_bazel_rules_closure",
+    sha256 = "d66deed38a0bb20581c15664f0ab62270af5940786855c7adc3087b27168b529",
+    strip_prefix = "rules_closure-0.11.0",
+    urls = [
+        "https://mirror.bazel.build/github.com/bazelbuild/rules_closure/archive/0.11.0.tar.gz",
+                           "https://github.com/bazelbuild/rules_closure/archive/0.11.0.tar.gz",
+    ],
+)
+
+load("@io_bazel_rules_closure//closure:repositories.bzl", "rules_closure_dependencies", "rules_closure_toolchains")
+rules_closure_dependencies()
+rules_closure_toolchains()
+
 #############################################
 # needed by com_github_glog_glog
 git_repository(
