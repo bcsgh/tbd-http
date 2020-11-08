@@ -1,3 +1,5 @@
+load("@bazel_rules//cc_embed_data:cc_embed_data.bzl", "cc_embed_data")
+
 cc_binary(
     name = "server",
     srcs = ["server_main.cc"],
@@ -23,6 +25,15 @@ cc_library(
     hdrs = ["tbd.h"],
     srcs = ["tbd.cc"],
     deps = [
+        ":static_embed",
         "@com_github_etr_libhttpserver//:libhttpserver",
+    ],
+)
+
+cc_embed_data(
+    name = "static_embed",
+    namespace = "tbd_server",
+    srcs = [
+        "main.html",
     ],
 )
