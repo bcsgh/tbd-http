@@ -4,6 +4,7 @@
 
 #include <httpserver.hpp>
 
+#include "glog/logging.h"
 #include "json/json.h"
 #include "server/static_embed_emebed_data.h"
 
@@ -34,6 +35,10 @@ class TbdServer_JSON : public httpserver::http_resource {
 };
 
 const std::shared_ptr<http_response> TbdServer_JSON::render(const http_request& req) {
+  LOG(INFO) << "method        = '" << req.get_method() << "'";
+  const auto body = req.get_content();
+  LOG(INFO) << "Content:\n------\n" << body << "\n------";
+
   Json::Value ret(Json::objectValue);
 
   std::stringstream out;

@@ -28,6 +28,7 @@ cc_library(
     deps = [
         ":static_embed",
         "@com_github_etr_libhttpserver//:libhttpserver",
+        "@com_github_glog_glog//:glog",
         "@com_github_open_source_parsers_jsoncpp//:json",
     ],
 )
@@ -37,6 +38,9 @@ closure_js_library(
     srcs = [
         "tbd.js",
         "tbd_main.js"
+    ],
+    deps = [
+        "@io_bazel_rules_closure//closure/library/dom:dom",
     ],
 )
 
