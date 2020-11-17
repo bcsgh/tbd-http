@@ -51,9 +51,28 @@ git_repository(
 #############################################
 git_repository(
     name = "bazel_rules",
-    commit = "d2dcb62093486e3c920b6a37c3835ca33dc247bc",  # current as of 2020/11/07
+    commit = "c9d0b0de8d27f414ea402c62a90a71660c9795e4",  # current as of 2020/11/11
+    shallow_since = "1605160622 -0800",
     remote = "git://github.com/bcsgh/bazel_rules.git",
 )
+
+#############################################
+git_repository(
+    name = "com_github_bcsgh_tbd",
+    commit = "ce7ec05c8f7abfc867d6194672d7a7d83d83df7f",  # current as of 2020/11/10
+    shallow_since = "1605073295 -0800",
+    remote = "git://github.com/bcsgh/tbd.git",
+)
+
+#############################################
+new_git_repository(
+    name = "eigen",
+    build_file = "@//:extern/BUILD.eigen",
+    commit = "cf794d3b741a6278df169e58461f8529f43bce5d",
+    shallow_since = "1544551075 +0100",
+    remote = "git://github.com/eigenteam/eigen-git-mirror.git",
+)
+
 
 #############################################
 new_git_repository(
