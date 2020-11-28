@@ -5,7 +5,8 @@ load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 
 git_repository(
     name = "rules_foreign_cc",
-    commit = "d54c78ab86b40770ee19f0949db9d74a831ab9f0",  # current as of 2020/11/07
+    commit = "d54c78ab86b40770ee19f0949db9d74a831ab9f0",  # current as of 2020/11/28
+    shallow_since = "1603722361 +0100",
     remote = "git://github.com/bazelbuild/rules_foreign_cc.git",
 )
 
@@ -27,7 +28,7 @@ rules_closure_toolchains()
 # needed by com_github_glog_glog
 git_repository(
     name = "com_github_gflags_gflags",
-    commit = "827c769e5fc98e0f2a34c47cef953cc6328abced",  # current as of 2020/11/07
+    commit = "827c769e5fc98e0f2a34c47cef953cc6328abced",  # current as of 2020/11/28
     shallow_since = "1604052972 +0000",
     remote = "git://github.com/gflags/gflags.git",
 )
@@ -35,7 +36,7 @@ git_repository(
 #############################################
 git_repository(
     name = "com_github_glog_glog",
-    commit = "c8f8135a5720aee7de8328b42e4c43f8aa2e60aa",  # current as of 2020/11/07
+    commit = "c8f8135a5720aee7de8328b42e4c43f8aa2e60aa",  # current as of 2020/11/28
     shallow_since = "1601711556 +0200",
     remote = "git://github.com/google/glog.git",
 )
@@ -43,24 +44,24 @@ git_repository(
 #############################################
 git_repository(
     name = "com_google_absl",
-    commit = "e96d49687d9c078f2d47356b6723c3b5715493f7",  # current as of 2020/11/07
-    shallow_since = "1604603876 -0500",
+    commit = "5d8fc9192245f0ea67094af57399d7931d6bd53f",  # current as of 2020/11/28
+    shallow_since = "1606203805 -0500",
     remote = "git://github.com/abseil/abseil-cpp.git",
 )
 
 #############################################
 git_repository(
     name = "bazel_rules",
-    commit = "abedeb83ecbfca3448205de85dcd7281d70f05b4",  # current as of 2020/11/17
-    shallow_since = "1605160622 -0800",
+    commit = "abedeb83ecbfca3448205de85dcd7281d70f05b4",  # current as of 2020/11/28
+    shallow_since = "1605677400 -0800",
     remote = "git://github.com/bcsgh/bazel_rules.git",
 )
 
 #############################################
 git_repository(
     name = "com_github_bcsgh_tbd",
-    commit = "0ab769e231901eb061d70d75257d63127e34ba2c",  # current as of 2020/11/17
-    shallow_since = "1605073295 -0800",
+    commit = "115a59d5c465b218cfdff6fb45b3bdd8aedd6a26",  # current as of 2020/11/28
+    shallow_since = "1606281544 -0800",
     remote = "git://github.com/bcsgh/tbd.git",
 )
 
@@ -77,7 +78,7 @@ new_git_repository(
 #############################################
 new_git_repository(
     name = "com_github_open_source_parsers_jsoncpp",
-    commit = "8954092f0af9538f3cde47aceb459dbe4d6e2241",  # current as of 2020/11/07
+    commit = "8954092f0af9538f3cde47aceb459dbe4d6e2241",  # current as of 2020/11/28
     shallow_since = "1604698551 -0800",
     remote = "git://github.com/open-source-parsers/jsoncpp.git",
     build_file = "//:extern/BUILD.jsoncpp",
@@ -87,7 +88,8 @@ new_git_repository(
 new_git_repository(
     name = "com_github_etr_libhttpserver",
     build_file = "//:extern/BUILD.libhttpserver",
-    commit = "c9746044d4b5c849f2b484087e110dd2a6e55308",  # current as of 2020/11/07
+    commit = "7cb4eb8454ab936fcf2c54a61cc4d71a65f14680",  # current as of 2020/11/28
+    shallow_since = "1605998057 -0800",
     remote = "git://github.com/etr/libhttpserver.git"
 )
 
