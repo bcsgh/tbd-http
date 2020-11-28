@@ -8,6 +8,7 @@
 #include "glog/logging.h"
 #include "json/json.h"
 #include "server/static_embed_emebed_data.h"
+#include "tbd/preamble_emebed_data.h"
 #include "tbd/tbd.h"
 
 namespace tbd_server {
@@ -98,11 +99,12 @@ const std::shared_ptr<http_response> TbdServer_JSON::render(const http_request& 
 
 struct TbdServer::Impl {
   TbdServer_JSON json;
-  Static html, js;
+  Static html, js, preamble;
 
   Impl() :
     html(std::string{server_main_html()}, "text/html"),
-    js(std::string{server_tbd_main_js_js()}, "text/javascript") {}
+    js(std::string{server_tbd_main_js_js()}, "text/javascript"),
+    preamble(std::string{::tbd_preamble_tbd()}, "text/x.tbd") {}
 };
 
 TbdServer::TbdServer() : impl_(new TbdServer::Impl) {}
@@ -112,6 +114,7 @@ void TbdServer::RegisterResources(httpserver::webserver *ws) {
   ws->register_resource("/", &impl_->html, true);
   ws->register_resource("/json", &impl_->json, true);
   ws->register_resource("/tbd.js", &impl_->js, true);
+  ws->register_resource("/preamble.tbd", &impl_->preamble, true);
 };
 
 } // namespace tbd_server
