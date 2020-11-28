@@ -4,6 +4,7 @@
 
 #include <httpserver.hpp>
 
+#include "glog/logging.h"
 # include "server/tbd.h"
 
 namespace tbd_server {
@@ -19,6 +20,7 @@ int Main(int port) {
   TbdServer server;
   server.RegisterResources(&ws);
 
+  LOG(INFO) << "Serving at http://localhost:" << port << "/";
   ws.start(true);
   return 0;
 }

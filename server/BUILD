@@ -18,6 +18,7 @@ cc_library(
     deps = [
         ":tbd",
         "@com_github_etr_libhttpserver//:libhttpserver",
+        "@com_github_glog_glog//:glog",
     ],
 )
 
