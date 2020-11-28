@@ -8,6 +8,12 @@ const {DomHelper} = goog.require("goog.dom");
 function Main() {
   const dom = new DomHelper();
 
+  fetch('/preamble.tbd')
+    .then(async function(response) {
+      const output = /** @type{HTMLPreElement}*/(dom.getElement("preamble"));
+      output.innerText = await response.text();
+    });
+
   const submit_script = /** @type{HTMLButtonElement}*/(dom.getElement("submit_script"));
   submit_script.onclick = function() {
     const input_script = /** @type{HTMLTextAreaElement}*/(dom.getElement("input_script"));
