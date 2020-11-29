@@ -69,9 +69,9 @@ git_repository(
 new_git_repository(
     name = "eigen",
     build_file = "@//:extern/BUILD.eigen",
-    commit = "cf794d3b741a6278df169e58461f8529f43bce5d",
-    shallow_since = "1544551075 +0100",
-    remote = "git://github.com/eigenteam/eigen-git-mirror.git",
+    commit = "68f69414f7d358deac4876ede5be15e990da496b",
+    shallow_since = "1606531936 -0700",
+    remote = "https://gitlab.com/libeigen/eigen.git",
 )
 
 
