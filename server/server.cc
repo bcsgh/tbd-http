@@ -4,10 +4,17 @@
 
 #include <httpserver.hpp>
 
+#include "absl/flags/flag.h"
 #include "glog/logging.h"
-# include "server/tbd.h"
+#include "server/tbd.h"
+
+ABSL_FLAG(int, http_port, 8080, "HTTP port");
 
 namespace tbd_server {
+
+int Main() {
+  return Main(absl::GetFlag(FLAGS_http_port));
+}
 
 int Main(int port) {
   httpserver::webserver ws = httpserver::create_webserver(port)

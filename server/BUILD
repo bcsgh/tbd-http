@@ -19,6 +19,7 @@ cc_library(
     srcs = ["server.cc"],
     deps = [
         ":tbd",
+        "@com_google_absl//absl/flags:flag",
         "@com_github_etr_libhttpserver//:libhttpserver",
         "@com_github_glog_glog//:glog",
     ],

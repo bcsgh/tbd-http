@@ -39,5 +39,5 @@ int main(int argc, char **argv) {
   google::InitGoogleLogging(args[0]);
   google::InstallFailureSignalHandler();
 
-  return tbd_server::Main(8080);
+  return tbd_server::Main();
 }
