@@ -1,3 +1,6 @@
+#ifndef SERVER_TBD_H_
+#define SERVER_TBD_H_
+
 #include <memory>
 
 #include <httpserver.hpp>
@@ -18,3 +21,4 @@ class TbdServer {
 
 } // namespace tbd_server
 
+#endif // SERVER_TBD_H_
