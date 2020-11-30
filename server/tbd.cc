@@ -1,15 +1,23 @@
 #include "server/tbd.h"
 
+#include <cstdio>
+#include <fstream>
+#include <iostream>
 #include <memory>
 
 #include <httpserver.hpp>
 
+#include "absl/flags/flag.h"
 #include "absl/strings/str_join.h"
 #include "glog/logging.h"
 #include "json/json.h"
 #include "server/static_embed_emebed_data.h"
 #include "tbd/preamble_emebed_data.h"
 #include "tbd/tbd.h"
+
+ABSL_FLAG(std::string, tbd_post_log_dir, "",
+          "Where to stash POST bodies while processing them. "
+          "This allows debuging crashes");
 
 namespace tbd_server {
 using httpserver::http_request;
@@ -49,6 +57,24 @@ class Sink : public tbd::ProcessOutput {
 
 const std::shared_ptr<http_response> TbdServer_JSON::render(const http_request& req) {
   const auto body = req.get_content();
+
+  std::shared_ptr<void> cleanup_log_file;
+  if (!absl::GetFlag(FLAGS_tbd_post_log_dir).empty()) {
+    std::shared_ptr<char[]> tmp(
+        tempnam(absl::GetFlag(FLAGS_tbd_post_log_dir).c_str(), "tbd."),
+        std::free);
+    std::string tmp_name(tmp.get());
+
+    std::ofstream body_log;
+    body_log.open(tmp_name);
+    body_log << body;
+    body_log.close();
+
+    LOG(INFO) << "Logged body in '" << tmp_name << "'";
+    cleanup_log_file.reset(&cleanup_log_file, [tmp_name](void*){
+      std::remove(tmp_name.c_str());
+    });
+  }
 
   Json::Value ret(Json::objectValue);
   int code = 500;

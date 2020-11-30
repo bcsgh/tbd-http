@@ -31,6 +31,7 @@ cc_library(
     srcs = ["tbd.cc"],
     deps = [
         ":static_embed",
+        "@com_google_absl//absl/flags:flag",
         "@com_github_bcsgh_tbd//tbd:tbd_lib",
         "@com_github_etr_libhttpserver//:libhttpserver",
         "@com_github_glog_glog//:glog",
