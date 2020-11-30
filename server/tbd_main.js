@@ -3,4 +3,4 @@
 
 goog.module('TBD.Start');
 const Main = goog.require("TBD.Main");
-Main();
+Main.Main();

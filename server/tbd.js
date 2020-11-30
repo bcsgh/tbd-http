@@ -55,4 +55,9 @@ function FillTable(output, result) {
   }
 }
 
-exports = Main;
+exports = {
+  Main: Main,
+  impl: {
+    FillTable: FillTable,
+  },
+};
