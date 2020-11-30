@@ -15,22 +15,36 @@ function Main() {
     });
 
   const submit_script = /** @type{HTMLButtonElement}*/(dom.getElement("submit_script"));
-  submit_script.onclick = function() {
-    const input_script = /** @type{HTMLTextAreaElement}*/(dom.getElement("input_script"));
-    fetch('/json', {method: 'POST', body: input_script.value})
-      .then(async function(response) {
-        const output = /** @type{HTMLSpanElement}*/(dom.getElement("output"));
-        console.log(response.ok);
-        if (response.ok) {
-          let json = await response.json();
-          FillTable(output, json);
-        } else {
-          let json = JSON.parse(await response.text());
-          output.innerHTML = "";
-          output.appendChild(document.createElement("pre")).innerText = json["errors"];
-        }
-      });
-  };
+  submit_script.onclick = PostRequest;
+}
+
+/**
+ * Process the user input server side.
+ */
+function PostRequest() {
+  const dom = new DomHelper();
+  const input_script = /** @type{HTMLTextAreaElement}*/(dom.getElement("input_script"));
+
+  fetch('/json', {method: 'POST', body: input_script.value})
+    .then(ProcessResponce);
+}
+
+/**
+ * Process server responce.
+ * @param {Response} response Fetch response.
+ */
+async function ProcessResponce(response) {
+  const dom = new DomHelper();
+  const output = /** @type{HTMLSpanElement}*/(dom.getElement("output"));
+
+  if (response.ok) {
+    let json = await response.json();
+    FillTable(output, json);
+  } else {
+    let json = JSON.parse(await response.text());
+    output.innerHTML = "";
+    output.appendChild(document.createElement("pre")).innerText = json["errors"];
+  }
 }
 
 /**
@@ -59,5 +73,7 @@ exports = {
   Main: Main,
   impl: {
     FillTable: FillTable,
+    PostRequest: PostRequest,
+    ProcessResponce: ProcessResponce,
   },
 };
