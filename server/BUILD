@@ -8,6 +8,8 @@ cc_binary(
         ":server_lib",
         "@com_github_gflags_gflags//:gflags",
         "@com_github_glog_glog//:glog",
+        "@com_google_absl//absl/flags:flag",
+        "@com_google_absl//absl/flags:parse",
     ],
 )
 
