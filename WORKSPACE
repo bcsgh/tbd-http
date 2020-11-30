@@ -60,7 +60,7 @@ git_repository(
 #############################################
 git_repository(
     name = "com_github_bcsgh_tbd",
-    commit = "115a59d5c465b218cfdff6fb45b3bdd8aedd6a26",  # current as of 2020/11/28
+    commit = "26d42183b4c474f546425479bcc61b5c1a6da2b9",  # current as of 2020/11/29
     shallow_since = "1606281544 -0800",
     remote = "git://github.com/bcsgh/tbd.git",
 )
@@ -69,7 +69,7 @@ git_repository(
 new_git_repository(
     name = "eigen",
     build_file = "@//:extern/BUILD.eigen",
-    commit = "68f69414f7d358deac4876ede5be15e990da496b",
+    commit = "68f69414f7d358deac4876ede5be15e990da496b",  # current as of 2020/11/28
     shallow_since = "1606531936 -0700",
     remote = "https://gitlab.com/libeigen/eigen.git",
 )
