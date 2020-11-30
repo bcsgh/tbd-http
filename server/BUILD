@@ -1,5 +1,6 @@
 load("@bazel_rules//cc_embed_data:cc_embed_data.bzl", "cc_embed_data")
 load("@io_bazel_rules_closure//closure:defs.bzl", "closure_js_library", "closure_js_binary")
+load("@io_bazel_rules_closure//closure/testing:closure_js_test.bzl", "closure_js_test")
 
 cc_binary(
     name = "server",
@@ -70,6 +71,19 @@ closure_js_library(
     deps = [
         "@io_bazel_rules_closure//closure/library/dom:dom",
     ],
+)
+
+closure_js_test(
+    name = "tbd_js_test",
+    srcs = ["tbd_test.js"],
+    deps = [
+        ":tbd_js",
+        "@io_bazel_rules_closure//closure/library/testing:asserts",
+        "@io_bazel_rules_closure//closure/library/testing:jsunit",
+        "@io_bazel_rules_closure//closure/library/testing:testsuite",
+    ],
+    suppress = ["moduleLoad"],
+    entry_points = ["server/tbd_test.js"],
 )
 
 closure_js_binary(
