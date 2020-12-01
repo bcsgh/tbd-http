@@ -39,7 +39,12 @@ class Sink : public tbd::ProcessOutput {
 
 const std::shared_ptr<http_response> TbdServer_JSON::render(const http_request& req) {
   const auto body = req.get_content();
+  auto ret = render(body);
+  return std::shared_ptr<http_response>{new httpserver::string_response(
+      ret.first, ret.second, "application/json")};
+}
 
+std::pair<std::string, int> TbdServer_JSON::render(const std::string& body) {
   std::shared_ptr<void> cleanup_log_file;
   if (!absl::GetFlag(FLAGS_tbd_post_log_dir).empty()) {
     std::shared_ptr<char[]> tmp(
@@ -85,7 +90,7 @@ const std::shared_ptr<http_response> TbdServer_JSON::render(const http_request& 
       }
 
       if (node->unit.has_value()) {
-        val["unit"] = node->unit_name;
+        val["unit"] = absl::StrCat("[", node->unit_name, "]");
       } else if (node->dim.has_value()) {
         val["unit"] = node->dim->to_str();
       }
@@ -99,8 +104,7 @@ const std::shared_ptr<http_response> TbdServer_JSON::render(const http_request& 
 
   std::stringstream out;
   out << ret;
-  return std::shared_ptr<http_response>{new httpserver::string_response(
-      out.str(), code, "application/json")};
+  return {out.str(), code};
 }
 
 }  // namespace impl
