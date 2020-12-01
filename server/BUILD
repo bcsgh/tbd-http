@@ -41,7 +41,10 @@ cc_library(
 cc_library(
     name = "tbd",
     hdrs = ["tbd.h"],
-    srcs = ["tbd.cc"],
+    srcs = [
+        "tbd.cc",
+        "tbd_impl.h",
+    ],
     deps = [
         ":static_embed",
         "@com_google_absl//absl/flags:flag",
