@@ -47,11 +47,13 @@ cc_library(
     ],
     deps = [
         ":static_embed",
-        "@com_google_absl//absl/flags:flag",
         "@com_github_bcsgh_tbd//tbd:tbd_lib",
+        # "@com_github_bcsgh_tbd//tbd:preamble",
         "@com_github_etr_libhttpserver//:libhttpserver",
         "@com_github_glog_glog//:glog",
         "@com_github_open_source_parsers_jsoncpp//:json",
+        "@com_google_absl//absl/flags:flag",
+        "@com_google_absl//absl/strings",
     ],
 )
 
@@ -61,6 +63,10 @@ cc_test(
     deps = [
         ":tbd",
         ":test_main",
+        "@com_github_etr_libhttpserver//:libhttpserver",
+        "@com_github_open_source_parsers_jsoncpp//:json",
+        "@com_google_absl//absl/memory",
+        "@com_google_absl//absl/strings",
         "@com_google_googletest//:gtest",
     ],
 )

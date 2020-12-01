@@ -4,6 +4,10 @@
 #include <fstream>
 #include <iostream>
 #include <memory>
+#include <sstream>
+#include <string>
+#include <utility>
+#include <vector>
 
 #include <httpserver.hpp>
 
