@@ -56,6 +56,13 @@ function FillTable(output, result) {
   output.innerHTML = "";
   let t = output.appendChild(document.createElement("table"));
   t.border = 1;
+  {
+    let r = t.appendChild(document.createElement("thead"))
+             .appendChild(document.createElement("tr"));
+    r.appendChild(document.createElement("th")).innerText = "Name ";
+    r.appendChild(document.createElement("th")).innerText = "Value ";
+    r.appendChild(document.createElement("th")).innerText = "Units ";
+  }
   let tb = t.appendChild(document.createElement("tbody"));
 
   for (let /** @type {*} */ v of result["values"]) {
