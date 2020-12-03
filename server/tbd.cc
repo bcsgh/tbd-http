@@ -138,10 +138,55 @@ std::pair<std::string, int> TbdServer_JSON::render(const std::string& body) {
   return {out.str(), code};
 }
 
+class JsonSink : public tbd::UnitsOutput {
+ public:
+  JsonSink(Json::Value *out) : out_(out) {}
+
+  void Output(const std::string& a, const tbd::Unit& u) const override {
+    Json::Value ret(Json::objectValue);
+    ret["scale"] = u.scale;
+    { auto v = u.dim.l(); if (v != "0") ret["L"] = v; }
+    { auto v = u.dim.m(); if (v != "0") ret["M"] = v; }
+    { auto v = u.dim.t(); if (v != "0") ret["T"] = v; }
+    { auto v = u.dim.i(); if (v != "0") ret["I"] = v; }
+    { auto v = u.dim.k(); if (v != "0") ret["K"] = v; }
+    { auto v = u.dim.n(); if (v != "0") ret["N"] = v; }
+    { auto v = u.dim.j(); if (v != "0") ret["J"] = v; }
+
+    (*out_)["types"][u.dim.to_str()].append(a);
+    (*out_)["units"][a] = ret;
+  }
+
+ private:
+  Json::Value *const out_;
+};
+
+
+std::string PreambleUnits() {
+  std::vector<std::string> errs;
+  Sink sink{errs};
+  auto processed = tbd::ProcessInput("NULL", "", sink);
+  LOG_IF(FATAL, !processed) << "Failed to process embeded preamble";
+
+  Json::Value ret(Json::objectValue);
+  JsonSink out(&ret);
+
+  processed->sem.LogUnits(out);
+
+  Json::StreamWriterBuilder builder;
+  builder.settings_["indentation"] = "";
+  std::unique_ptr<Json::StreamWriter> writer(builder.newStreamWriter());
+
+  std::stringstream str;
+  writer->write(ret, &str);
+  return str.str();
+}
+
 }  // namespace impl
 TbdServer::Impl::Impl() :
     html(std::string{server_main_html()}, "text/html"),
     js(std::string{server_tbd_main_js_js()}, "text/javascript"),
+    units(impl::PreambleUnits(), "application/json"),
     preamble(std::string{::tbd_preamble_tbd()}, "text/x.tbd") {}
 
 TbdServer::TbdServer() : impl_(new TbdServer::Impl) {}
@@ -152,6 +197,7 @@ void TbdServer::RegisterResources(httpserver::webserver *ws) {
   ws->register_resource("/json", &impl_->json, true);
   ws->register_resource("/tbd.js", &impl_->js, true);
   ws->register_resource("/preamble.tbd", &impl_->preamble, true);
+  ws->register_resource("/units", &impl_->units, true);
 };
 
 } // namespace tbd_server

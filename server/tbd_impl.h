@@ -65,11 +65,14 @@ class TbdServer_JSON : public httpserver::http_resource {
   const std::shared_ptr<http_response> render(const http_request&) override;
   std::pair<std::string, int> render(const std::string&);
 };
+
+std::string PreambleUnits();
+
 }  // namespace impl
 
 struct TbdServer::Impl {
   impl::TbdServer_JSON json;
-  impl::Static html, js, preamble;
+  impl::Static html, js, preamble, units;
 
   Impl();
 };
