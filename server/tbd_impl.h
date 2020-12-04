@@ -72,7 +72,7 @@ std::string PreambleUnits();
 
 struct TbdServer::Impl {
   impl::TbdServer_JSON json;
-  impl::Static html, js, preamble, units;
+  impl::Static html, js, units, preamble;
 
   Impl();
 };
