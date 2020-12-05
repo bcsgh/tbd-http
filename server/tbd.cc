@@ -145,6 +145,7 @@ class JsonSink : public tbd::UnitsOutput {
   void Output(const std::string& a, const tbd::Unit& u) const override {
     Json::Value ret(Json::objectValue);
     ret["scale"] = u.scale;
+    // Dump these as strins to avoid needing to worry about fractions.
     { auto v = u.dim.l(); if (v != "0") ret["L"] = v; }
     { auto v = u.dim.m(); if (v != "0") ret["M"] = v; }
     { auto v = u.dim.t(); if (v != "0") ret["T"] = v; }
