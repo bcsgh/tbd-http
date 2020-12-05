@@ -27,8 +27,9 @@
 
 goog.module('TBD.Main');
 
-const {DomHelper} = goog.require("goog.dom");
+const {DomHelper, TagName, createDom} = goog.require("goog.dom");
 
+const CLASS_MIN_WIDTH = "min_width";
 /**
  * The entry point.
  */
@@ -41,8 +42,86 @@ function Main() {
       output.innerText = await response.text();
     });
 
+  fetch('/units')
+    .then(async function(r) {
+      const o = /** @type{HTMLPreElement}*/(dom.getElement("units"));
+      ProcessUnits(r, o);
+    });
+
   const submit_script = /** @type{HTMLButtonElement}*/(dom.getElement("submit_script"));
   submit_script.onclick = PostRequest;
+}
+
+/**
+ * Process units responce.
+ * @param {Response} response Fetch response.
+ * @param {HTMLPreElement} output Where to render;
+ */
+async function ProcessUnits(response, output) {
+  output.innerText = "";
+
+  let table = createDom(TagName.TABLE);
+  output.appendChild(table);
+  table.style.borderCollapse = "collapse";
+
+  // Build column headers.
+  let th = createDom(TagName.THEAD);
+  table.appendChild(th);
+  th.appendChild(createDom(TagName.TD)).innerText = "Name";
+  th.appendChild(createDom(TagName.TD)).innerText = "Scale";
+  th.appendChild(createDom(TagName.TD)).innerText = "m";
+  th.appendChild(createDom(TagName.TD)).innerText = "kg";
+  th.appendChild(createDom(TagName.TD)).innerText = "s";
+  th.appendChild(createDom(TagName.TD)).innerText = "A";
+  th.appendChild(createDom(TagName.TD)).innerText = "K";
+  th.appendChild(createDom(TagName.TD)).innerText = "mol";
+  th.appendChild(createDom(TagName.TD)).innerText = "cd";
+
+  const json = await response.json();
+  const /** @type{Object<string, !Array<!string>>}*/ classes = json["types"];
+  const /** @type{Object<string, !Object<string, !number>>}*/ units = json["units"];
+
+  // Build body.
+  let tb = table.appendChild(createDom(TagName.TBODY));
+  for (let v in classes) {
+    let first = true;
+    const types = classes[v];
+
+    for (let t of types) {
+      const unit = units[t];
+      if (!unit) continue;
+
+      let r = createDom(TagName.TR);
+      tb.appendChild(r);
+
+      r.appendChild(createDom(TagName.TD)).innerText = t;
+      r.appendChild(createDom(TagName.TD)).innerText = unit["scale"];
+
+      if (first) {
+        first = false;
+        r.classList.add("firstrow");
+
+        // Extra stuff for the first of each class of unit.
+        const m    = r.appendChild(createDom(TagName.TD, CLASS_MIN_WIDTH));
+        const kg   = r.appendChild(createDom(TagName.TD, CLASS_MIN_WIDTH));
+        const s    = r.appendChild(createDom(TagName.TD, CLASS_MIN_WIDTH));
+        const A    = r.appendChild(createDom(TagName.TD, CLASS_MIN_WIDTH));
+        const K    = r.appendChild(createDom(TagName.TD, CLASS_MIN_WIDTH));
+        const mol  = r.appendChild(createDom(TagName.TD, CLASS_MIN_WIDTH));
+        const cd   = r.appendChild(createDom(TagName.TD, CLASS_MIN_WIDTH));
+        const type = r.appendChild(createDom(TagName.TD));
+
+        if (unit["L"])   m.innerText = unit["L"];
+        if (unit["M"])  kg.innerText = unit["M"];
+        if (unit["T"])   s.innerText = unit["T"];
+        if (unit["I"])   A.innerText = unit["I"];
+        if (unit["K"])   K.innerText = unit["K"];
+        if (unit["N"]) mol.innerText = unit["N"];
+        if (unit["J"])  cd.innerText = unit["J"];
+        type.innerText = v;
+      }
+    }
+  }
 }
 
 /**
@@ -109,5 +188,6 @@ exports = {
     FillTable: FillTable,
     PostRequest: PostRequest,
     ProcessResponce: ProcessResponce,
+    ProcessUnits: ProcessUnits,
   },
 };
