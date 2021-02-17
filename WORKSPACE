@@ -28,7 +28,7 @@ rules_closure_toolchains()
 # needed by com_github_glog_glog
 git_repository(
     name = "com_github_gflags_gflags",
-    commit = "827c769e5fc98e0f2a34c47cef953cc6328abced",  # current as of 2020/11/28
+    commit = "827c769e5fc98e0f2a34c47cef953cc6328abced",  # current as of 2021/02/17
     shallow_since = "1604052972 +0000",
     remote = "git://github.com/gflags/gflags.git",
 )
@@ -37,31 +37,31 @@ git_repository(
 git_repository(
     name = "com_github_glog_glog",
     commit = "e370cd51661892cb3bd5ba80541d0739c0d219b4",  # current as of 2021/02/17
-    shallow_since = "1601711556 +0200",
+    shallow_since = "1613215412 +0100",
     remote = "git://github.com/google/glog.git",
 )
 
 #############################################
 git_repository(
     name = "com_google_absl",
-    commit = "5d8fc9192245f0ea67094af57399d7931d6bd53f",  # current as of 2020/11/28
-    shallow_since = "1606203805 -0500",
+    commit = "143a27800eb35f4568b9be51647726281916aac9",  # current as of 2021/02/17
+    shallow_since = "1613186346 -0500",
     remote = "git://github.com/abseil/abseil-cpp.git",
 )
 
 #############################################
 git_repository(
     name = "com_google_googletest",
-    commit = "b1fbd33c06cdb0024c67733c6fdec2009d17b384",  # current as of 2020/11/28
-    shallow_since = "1606207587 -0500",
+    commit = "609281088cfefc76f9d0ce82e1ff6c30cc3591e5",  # current as of 2021/02/17
+    shallow_since = "1613065794 -0500",
     remote = "git://github.com/google/googletest.git",
 )
 
 #############################################
 git_repository(
     name = "bazel_rules",
-    commit = "abedeb83ecbfca3448205de85dcd7281d70f05b4",  # current as of 2020/11/28
-    shallow_since = "1605677400 -0800",
+    commit = "7bedda9b65feaa1efab8d9cd77c4c1a8b667b042",  # current as of 2021/02/17
+    shallow_since = "1606611670 -0800",
     remote = "git://github.com/bcsgh/bazel_rules.git",
 )
 
@@ -69,7 +69,7 @@ git_repository(
 git_repository(
     name = "com_github_bcsgh_tbd",
     commit = "866ef2a0da74476129912d13ce21bff6ab177c20",  # current as of 2020/12/02
-    shallow_since = "1606281544 -0800",
+    shallow_since = "1606974250 -0800",
     remote = "git://github.com/bcsgh/tbd.git",
 )
 
@@ -77,8 +77,8 @@ git_repository(
 new_git_repository(
     name = "eigen",
     build_file = "@//:extern/BUILD.eigen",
-    commit = "68f69414f7d358deac4876ede5be15e990da496b",  # current as of 2020/11/28
-    shallow_since = "1606531936 -0700",
+    commit = "9b51dc7972c9f64727e9c8e8db0c60aaf9aae532",  # current as of 2021/02/17
+    shallow_since = "1613584163 +0000",
     remote = "https://gitlab.com/libeigen/eigen.git",
 )
 
@@ -86,8 +86,8 @@ new_git_repository(
 #############################################
 new_git_repository(
     name = "com_github_open_source_parsers_jsoncpp",
-    commit = "8954092f0af9538f3cde47aceb459dbe4d6e2241",  # current as of 2020/11/28
-    shallow_since = "1604698551 -0800",
+    commit = "fda274ddd297a53110d43189c2d69fee8f748da9",  # current as of 2021/02/17
+    shallow_since = "1612932637 -0500",
     remote = "git://github.com/open-source-parsers/jsoncpp.git",
     build_file = "//:extern/BUILD.jsoncpp",
 )
@@ -96,8 +96,8 @@ new_git_repository(
 new_git_repository(
     name = "com_github_etr_libhttpserver",
     build_file = "//:extern/BUILD.libhttpserver",
-    commit = "7cb4eb8454ab936fcf2c54a61cc4d71a65f14680",  # current as of 2020/11/28
-    shallow_since = "1605998057 -0800",
+    commit = "ec973dc883b0d33f81c7f69b66dd5770ba14e695",  # current as of 2021/02/17
+    shallow_since = "1607724471 -0800",
     remote = "git://github.com/etr/libhttpserver.git"
 )
 
