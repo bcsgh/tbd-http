@@ -114,7 +114,7 @@ DOMAINS = [
     # primary
     "ftp.gnu.org",
 ]
-libmicrohttpd_VERSION = "libmicrohttpd-0.9.71"
+LIBMICROHTTPD_VERSION = "libmicrohttpd-0.9.71"
 HASH = {
     "libmicrohttpd-0.9.71": "e8f445e85faf727b89e9f9590daea4473ae00ead38b237cf1eda55172b89b182",
 }
@@ -122,10 +122,10 @@ HASH = {
 http_archive(
     name = "org_gnu_microhttpd",
     build_file = "//:extern/BUILD.microhttpd",
-    sha256 = HASH[libmicrohttpd_VERSION],
-    strip_prefix = libmicrohttpd_VERSION,
+    sha256 = HASH[LIBMICROHTTPD_VERSION],
+    strip_prefix = LIBMICROHTTPD_VERSION,
     urls = [
-        "https://%s/gnu/libmicrohttpd/%s.tar.gz" % (domain, libmicrohttpd_VERSION)
+        "https://%s/gnu/libmicrohttpd/%s.tar.gz" % (domain, LIBMICROHTTPD_VERSION)
         for domain in DOMAINS
     ],
 )
