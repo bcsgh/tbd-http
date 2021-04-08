@@ -3,6 +3,8 @@ buildifier: latest
 tasks:
   ubuntu_default_compiler:
     platform: ubuntu1604
+    shell_commands:
+      - apt install gnutls-bin
     build_targets:
     - "..."
     test_targets:
