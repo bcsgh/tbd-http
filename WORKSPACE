@@ -17,12 +17,12 @@ rules_foreign_cc_dependencies([])
 #############################################
 git_repository(
     name = "bazel_rules",
-    commit = "92c4f9b3ce13c7a61970fd6bdd38d445df077a40",  # current as of 2021/05/17
+    commit = "51c9ca0ea5306cbc06f8f1113cc42df7068adbe9",  # current as of 2021/05/17
     remote = "git://github.com/bcsgh/bazel_rules.git",
-    shallow_since = "1621264192 -0700",
+    shallow_since = "1621268673 -0700",
 )
 
-load("@bazel_rules//repositories:repositories.bzl", "jsoncpp", "libcurl", "libev", "libgnutls", "libidn2", "libnettle", "microhttpd", "openssl", "zlib")
+load("@bazel_rules//repositories:repositories.bzl", "jsoncpp", "libhttpserver", "microhttpd")
 
 #############################################
 # https://github.com/bazelbuild/rules_closure
@@ -89,15 +89,8 @@ new_git_repository(
 )
 
 #############################################
-new_git_repository(
-    name = "com_github_etr_libhttpserver",
-    build_file = "//:extern/BUILD.libhttpserver",
-    commit = "ec973dc883b0d33f81c7f69b66dd5770ba14e695",  # current as of 2021/02/17
-    remote = "git://github.com/etr/libhttpserver.git",
-    shallow_since = "1607724471 -0800",
-)
-
-#############################################
 jsoncpp()
+
+libhttpserver()
 
 microhttpd()
