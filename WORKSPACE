@@ -14,6 +14,17 @@ load("@rules_foreign_cc//foreign_cc:repositories.bzl", "rules_foreign_cc_depende
 
 rules_foreign_cc_dependencies([])
 
+#############################################
+git_repository(
+    name = "bazel_rules",
+    commit = "92c4f9b3ce13c7a61970fd6bdd38d445df077a40",  # current as of 2021/05/17
+    remote = "git://github.com/bcsgh/bazel_rules.git",
+    shallow_since = "1621264192 -0700",
+)
+
+load("@bazel_rules//repositories:repositories.bzl", "jsoncpp", "libcurl", "libev", "libgnutls", "libidn2", "libnettle", "microhttpd", "openssl", "zlib")
+
+#############################################
 # https://github.com/bazelbuild/rules_closure
 git_repository(
     name = "io_bazel_rules_closure",
@@ -62,14 +73,6 @@ git_repository(
 
 #############################################
 git_repository(
-    name = "bazel_rules",
-    commit = "7bedda9b65feaa1efab8d9cd77c4c1a8b667b042",  # current as of 2021/02/17
-    remote = "git://github.com/bcsgh/bazel_rules.git",
-    shallow_since = "1606611670 -0800",
-)
-
-#############################################
-git_repository(
     name = "com_github_bcsgh_tbd",
     commit = "5186cc910d475bd1a1894076b1b86ab8ccd7c302",  # current as of 2020/12/02
     remote = "git://github.com/bcsgh/tbd.git",
@@ -87,15 +90,6 @@ new_git_repository(
 
 #############################################
 new_git_repository(
-    name = "com_github_open_source_parsers_jsoncpp",
-    build_file = "//:extern/BUILD.jsoncpp",
-    commit = "fda274ddd297a53110d43189c2d69fee8f748da9",  # current as of 2021/02/17
-    remote = "git://github.com/open-source-parsers/jsoncpp.git",
-    shallow_since = "1612932637 -0500",
-)
-
-#############################################
-new_git_repository(
     name = "com_github_etr_libhttpserver",
     build_file = "//:extern/BUILD.libhttpserver",
     commit = "ec973dc883b0d33f81c7f69b66dd5770ba14e695",  # current as of 2021/02/17
@@ -104,32 +98,6 @@ new_git_repository(
 )
 
 #############################################
-DOMAINS = [
-    # GNU mirrors
-    "ftp.wayne.edu",
-    "mirrors.tripadvisor.com",
-    "mirrors.kernel.org",
-    "mirror.clarkson.edu",
-    "mirrors.syringanetworks.net",
-    "mirror.us-midwest-1.nexcess.net",
-    "mirrors.ocf.berkeley.edu",
-    # primary
-    "ftp.gnu.org",
-]
+jsoncpp()
 
-LIBMICROHTTPD_VERSION = "libmicrohttpd-0.9.71"
-
-HASH = {
-    "libmicrohttpd-0.9.71": "e8f445e85faf727b89e9f9590daea4473ae00ead38b237cf1eda55172b89b182",
-}
-
-http_archive(
-    name = "org_gnu_microhttpd",
-    build_file = "//:extern/BUILD.microhttpd",
-    sha256 = HASH[LIBMICROHTTPD_VERSION],
-    strip_prefix = LIBMICROHTTPD_VERSION,
-    urls = [
-        "https://%s/gnu/libmicrohttpd/%s.tar.gz" % (domain, LIBMICROHTTPD_VERSION)
-        for domain in DOMAINS
-    ],
-)
+microhttpd()
