@@ -17,12 +17,12 @@ rules_foreign_cc_dependencies([])
 #############################################
 git_repository(
     name = "bazel_rules",
-    commit = "51c9ca0ea5306cbc06f8f1113cc42df7068adbe9",  # current as of 2021/05/17
+    commit = "f62432efa85ef6f22dfd8bdfed0eafceecad7c81",  # current as of 2021/05/17
     remote = "git://github.com/bcsgh/bazel_rules.git",
-    shallow_since = "1621268673 -0700",
+    shallow_since = "1621302848 -0700",
 )
 
-load("@bazel_rules//repositories:repositories.bzl", "jsoncpp", "libhttpserver", "microhttpd")
+load("@bazel_rules//repositories:repositories.bzl", "eigen", "jsoncpp", "libhttpserver", "microhttpd")
 
 #############################################
 # https://github.com/bazelbuild/rules_closure
@@ -74,21 +74,14 @@ git_repository(
 #############################################
 git_repository(
     name = "com_github_bcsgh_tbd",
-    commit = "60d3217b3f64f0b8fad182d3e65c8e363c0690a8",  # current as of 2021/05/17
+    commit = "24d72cbc549bc371f6b2dc818d4f77ed68e333d6",  # current as of 2021/05/17
     remote = "git://github.com/bcsgh/tbd.git",
-    shallow_since = "1621300348 -0700",
+    shallow_since = "1621303043 -0700",
 )
 
 #############################################
-new_git_repository(
-    name = "eigen",
-    build_file = "@com_github_bcsgh_tbd//:extern/BUILD.eigen",
-    commit = "9b51dc7972c9f64727e9c8e8db0c60aaf9aae532",  # current as of 2021/02/17
-    remote = "https://gitlab.com/libeigen/eigen.git",
-    shallow_since = "1613584163 +0000",
-)
+eigen()
 
-#############################################
 jsoncpp()
 
 libhttpserver()
