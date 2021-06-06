@@ -5,6 +5,7 @@ load("@io_bazel_rules_closure//closure/testing:closure_js_test.bzl", "closure_js
 cc_binary(
     name = "server",
     srcs = ["server_main.cc"],
+    visibility = ["//visibility:public"],
     deps = [
         ":server_lib",
         "@com_github_gflags_gflags//:gflags",
@@ -12,7 +13,6 @@ cc_binary(
         "@com_google_absl//absl/flags:flag",
         "@com_google_absl//absl/flags:parse",
     ],
-    visibility = ["//visibility:public"],
 )
 
 cc_library(

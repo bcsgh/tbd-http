@@ -26,8 +26,8 @@ load("@bazel_rules//repositories:repositories.bzl", "eigen", "jsoncpp", "libhttp
 #############################################
 git_repository(
     name = "io_bazel_rules_docker",
-    remote = "git://github.com/bazelbuild/rules_docker.git",
     commit = "359898dbb45cffcf7e09c2a20d331e96ae3ae543",
+    remote = "git://github.com/bazelbuild/rules_docker.git",
 )
 
 load("@io_bazel_rules_docker//repositories:repositories.bzl", container_repositories = "repositories")

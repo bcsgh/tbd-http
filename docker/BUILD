@@ -6,6 +6,6 @@ container_image(
     name = "tbd_http",
     base = "@ubuntu_20_04//image",
     entrypoint = ["/server"],
+    files = ["//server"],
     repository = "local",
-    files = ["//server:server"],
 )
