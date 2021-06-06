@@ -24,6 +24,21 @@ git_repository(
 load("@bazel_rules//repositories:repositories.bzl", "eigen", "jsoncpp", "libhttpserver", "microhttpd")
 
 #############################################
+git_repository(
+    name = "io_bazel_rules_docker",
+    remote = "git://github.com/bazelbuild/rules_docker.git",
+    commit = "359898dbb45cffcf7e09c2a20d331e96ae3ae543",
+)
+
+load("@io_bazel_rules_docker//repositories:repositories.bzl", container_repositories = "repositories")
+
+container_repositories()
+
+load("@io_bazel_rules_docker//repositories:deps.bzl", container_deps = "deps")
+
+container_deps()
+
+#############################################
 # https://github.com/bazelbuild/rules_closure
 git_repository(
     name = "io_bazel_rules_closure",
@@ -86,3 +101,13 @@ jsoncpp()
 libhttpserver()
 
 microhttpd()
+
+#############################################
+load("@io_bazel_rules_docker//container:container.bzl", "container_pull")
+
+container_pull(
+    name = "ubuntu_20_04",
+    registry = "index.docker.io",
+    repository = "ubuntu",
+    tag = "20.04",
+)

@@ -1,0 +1,9 @@
+version: "3.3"
+services:
+  tbd:
+    image: tbd_http
+    restart: always
+    command:
+      - "--http_port=8080"
+    ports:
+      - "127.0.0.1:8080:8080"
