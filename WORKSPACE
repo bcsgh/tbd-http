@@ -88,9 +88,9 @@ git_repository(
 #############################################
 git_repository(
     name = "com_github_bcsgh_tbd",
-    commit = "baa3dd39f76e1c53d5d3ab62f4e8825c4abf6e23",  # current as of 2021/05/26
+    commit = "66f34fcdd6c73a86b68d7fddcd223435c91a6705",  # current as of 2021/05/26
     remote = "git://github.com/bcsgh/tbd.git",
-    shallow_since = "1622064985 -0700",
+    shallow_since = "1622067875 -0700",
 )
 
 #############################################
