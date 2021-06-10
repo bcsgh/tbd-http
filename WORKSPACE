@@ -4,9 +4,9 @@ load("@bazel_tools//tools/build_defs/repo:git.bzl", "git_repository")
 
 git_repository(
     name = "rules_foreign_cc",
-    commit = "b136e6c52da63da300b0f588c8a214d97b0d15cd",  # current as of 2021/05/06
+    commit = "2407938f22aaf09e5705e726037cf61e2003b291",  # current as of 2021/06/09
     remote = "git://github.com/bazelbuild/rules_foreign_cc.git",
-    shallow_since = "1620262045 -0700",
+    shallow_since = "1623082150 -0700"
 )
 
 load("@rules_foreign_cc//foreign_cc:repositories.bzl", "rules_foreign_cc_dependencies")
@@ -16,9 +16,9 @@ rules_foreign_cc_dependencies([])
 #############################################
 git_repository(
     name = "bazel_rules",
-    commit = "2e098f7900984412b1878e2fec9f11d58c420481",  # current as of 2021/05/26
+    commit = "91f468616384061a36754a4bf8ec2d8e68f222b9",  # current as of 2021/06/10
     remote = "git://github.com/bcsgh/bazel_rules.git",
-    shallow_since = "1621449342 -0700",
+    shallow_since = "1623350173 -0700",
 )
 
 load("@bazel_rules//repositories:repositories.bzl", "eigen", "jsoncpp", "libhttpserver", "microhttpd")
@@ -26,8 +26,9 @@ load("@bazel_rules//repositories:repositories.bzl", "eigen", "jsoncpp", "libhttp
 #############################################
 git_repository(
     name = "io_bazel_rules_docker",
-    commit = "359898dbb45cffcf7e09c2a20d331e96ae3ae543",
+    commit = "1b75b778b457a827efe665bad8fb36ea4c6392b7",  # current as of 2021/06/10
     remote = "git://github.com/bazelbuild/rules_docker.git",
+    shallow_since = "1623300313 -0700",
 )
 
 load("@io_bazel_rules_docker//repositories:repositories.bzl", container_repositories = "repositories")
@@ -64,33 +65,33 @@ git_repository(
 #############################################
 git_repository(
     name = "com_github_glog_glog",
-    commit = "e370cd51661892cb3bd5ba80541d0739c0d219b4",  # current as of 2021/02/17
+    commit = "c1499f64a8fb2eae2de79ed7195cf248e706efc9",  # current as of 2021/06/09
     remote = "git://github.com/google/glog.git",
-    shallow_since = "1613215412 +0100",
+    shallow_since = "1623050920 +0200"
 )
 
 #############################################
 git_repository(
     name = "com_google_absl",
-    commit = "143a27800eb35f4568b9be51647726281916aac9",  # current as of 2021/02/17
+    commit = "8f92175783c9685045c50f227e7c10f1cddb4d58",  # current as of 2021/06/10
     remote = "git://github.com/abseil/abseil-cpp.git",
-    shallow_since = "1613186346 -0500",
+    shallow_since = "1623281200 -0400",
 )
 
 #############################################
 git_repository(
     name = "com_google_googletest",
-    commit = "609281088cfefc76f9d0ce82e1ff6c30cc3591e5",  # current as of 2021/02/17
+    commit = "aa533abfd4232b01f9e57041d70114d5a77e6de0",  # current as of 2021/06/09
     remote = "git://github.com/google/googletest.git",
-    shallow_since = "1613065794 -0500",
+    shallow_since = "1623242719 -0400"
 )
 
 #############################################
 git_repository(
     name = "com_github_bcsgh_tbd",
-    commit = "66f34fcdd6c73a86b68d7fddcd223435c91a6705",  # current as of 2021/05/26
+    commit = "fe8743a69c1ab5af9387a4243f076ab07dc5247e",  # current as of 2021/06/10
     remote = "git://github.com/bcsgh/tbd.git",
-    shallow_since = "1622067875 -0700",
+    shallow_since = "1623350266 -0700",
 )
 
 #############################################
