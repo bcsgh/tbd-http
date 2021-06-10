@@ -16,9 +16,9 @@ rules_foreign_cc_dependencies([])
 #############################################
 git_repository(
     name = "bazel_rules",
-    commit = "91f468616384061a36754a4bf8ec2d8e68f222b9",  # current as of 2021/06/10
+    commit = "7471bb0206a8620db466bdaada1e30f6f42064ee",  # current as of 2021/06/10
     remote = "git://github.com/bcsgh/bazel_rules.git",
-    shallow_since = "1623350173 -0700",
+    shallow_since = "1623353151 -0700",
 )
 
 load("@bazel_rules//repositories:repositories.bzl", "eigen", "jsoncpp", "libhttpserver", "microhttpd")
@@ -89,9 +89,9 @@ git_repository(
 #############################################
 git_repository(
     name = "com_github_bcsgh_tbd",
-    commit = "fe8743a69c1ab5af9387a4243f076ab07dc5247e",  # current as of 2021/06/10
+    commit = "54105184f10460f8d2aa194f38943af7bdef62fc",  # current as of 2021/06/10
     remote = "git://github.com/bcsgh/tbd.git",
-    shallow_since = "1623350266 -0700",
+    shallow_since = "1623356214 -0700",
 )
 
 #############################################
