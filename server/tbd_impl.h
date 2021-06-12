@@ -52,8 +52,8 @@ class Static : public httpserver::http_resource {
     return render();
   }
   const std::shared_ptr<http_response> render() {
-    return std::shared_ptr<http_response>{new httpserver::string_response(
-        data_, http_utils::http_ok, mime_)};
+    return std::make_unique<httpserver::string_response>(
+        data_, http_utils::http_ok, mime_);
   }
 
  private:

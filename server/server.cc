@@ -28,11 +28,11 @@
 #include "server/server.h"
 
 #include <iostream>
-
-#include <httpserver.hpp>
+#include <string>
 
 #include "absl/flags/flag.h"
 #include "glog/logging.h"
+#include "httpserver.hpp"
 #include "server/tbd.h"
 
 ABSL_FLAG(int, http_port, 8080, "HTTP port");
@@ -43,10 +43,11 @@ int Main() {
   return Main(absl::GetFlag(FLAGS_http_port));
 }
 
+// Inner testable function.
 int Main(int port) {
   httpserver::webserver ws = httpserver::create_webserver(port)
                 .log_error(+[](const std::string& err){
-                  std::cout << err << std::endl;
+                  LOG(ERROR) << "httpserver error '" << err << "'";
                 })
                 .start_method(httpserver::http::http_utils::INTERNAL_SELECT)
                 .max_threads(5);

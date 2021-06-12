@@ -29,11 +29,13 @@
 
 #include "absl/flags/flag.h"
 #include "absl/flags/parse.h"
-#include "gflags/gflags.h"
+#include "gflags/gflags.h"  // TODO dump
 #include "glog/logging.h"
 #include "server/server.h"
 
 // TODO: Dump this once absl gets logging.
+// This is here to allow the gflags usage
+// from glog to be used along side absl/flags.
 
 // Note: copied (with edits) from absl/flags/flag.h
 #define ABSL_FLAG_X(T, n, d, h) ABSL_FLAG_IMPL_X(T, n, d, h)
@@ -49,10 +51,11 @@
 
 DECLARE_bool(alsologtostderr);
 ABSL_FLAG_X(bool, alsologtostderr, false,
-          "log messages go to stderr in addition to logfiles");
+            "log messages go to stderr in addition to logfiles");
 
 DECLARE_bool(logtostderr);
-ABSL_FLAG_X(bool, logtostderr, false, "log messages go to stderr instead of logfiles");
+ABSL_FLAG_X(bool, logtostderr, false,
+            "log messages go to stderr instead of logfiles");
 
 DECLARE_int32(v);
 ABSL_FLAG_X(int32_t, v, 0, "Show all VLOG(m) messages for m <= this.");

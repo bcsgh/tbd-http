@@ -71,8 +71,8 @@ class Sink : public tbd::ProcessOutput {
 const std::shared_ptr<http_response> TbdServer_JSON::render(const http_request& req) {
   const auto body = req.get_content();
   auto ret = render(body);
-  return std::shared_ptr<http_response>{new httpserver::string_response(
-      ret.first, ret.second, "application/json")};
+  return std::make_unique<httpserver::string_response>(
+      ret.first, ret.second, "application/json");
 }
 
 std::pair<std::string, int> TbdServer_JSON::render(const std::string& body) {
@@ -184,13 +184,14 @@ std::string PreambleUnits() {
 }
 
 }  // namespace impl
+
 TbdServer::Impl::Impl() :
     html(std::string{server_main_html()}, "text/html"),
     js(std::string{server_tbd_main_js_js()}, "text/javascript"),
     units(impl::PreambleUnits(), "application/json"),
     preamble(std::string{::tbd_preamble_tbd()}, "text/x.tbd") {}
 
-TbdServer::TbdServer() : impl_(new TbdServer::Impl) {}
+TbdServer::TbdServer() : impl_(std::make_unique<TbdServer::Impl>()) {}
 TbdServer::~TbdServer() = default;
 
 void TbdServer::RegisterResources(httpserver::webserver *ws) {

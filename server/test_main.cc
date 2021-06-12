@@ -37,13 +37,25 @@
 
 ABSL_FLAG(int32_t, test_srand_seed, 0, "The seed used for random");
 
-// TODO: Dump this once absl get logging.
-ABSL_FLAG(bool, alsologtostderr_x, false,
-          "log messages go to stderr in addition to logfiles");
-ABSL_FLAG(bool, logtostderr_x, false,
-          "log messages go to stderr instead of logfiles");
-ABSL_FLAG(int32_t, v_x, 0,  //
-          "Show all VLOG(m) messages for m <= this.");
+// TODO: Dump this once absl gets logging.
+
+// Note: copied (with edits) from absl/flags/flag.h
+#define ABSL_FLAG_X(T, n, d, h) ABSL_FLAG_IMPL_X(T, n, d, h)
+#define ABSL_FLAG_IMPL_X(Type, name, default_value, help)                     \
+  ABSL_FLAG_IMPL_DECLARE_DEF_VAL_WRAPPER(name, Type, default_value)           \
+  ABSL_FLAG_IMPL_DECLARE_HELP_WRAPPER(name, help)                             \
+  ABSL_CONST_INIT absl::Flag<Type> FLAGSx_##name{                             \
+      ABSL_FLAG_IMPL_FLAGNAME(#name), ABSL_FLAG_IMPL_FILENAME(),              \
+      ABSL_FLAG_IMPL_HELP_ARG(name), ABSL_FLAG_IMPL_DEFAULT_ARG(Type, name)}; \
+  extern absl::flags_internal::FlagRegistrarEmpty FLAGSx_no##name;            \
+  absl::flags_internal::FlagRegistrarEmpty FLAGSx_no##name =                  \
+      ABSL_FLAG_IMPL_REGISTRAR(Type, FLAGSx_##name)
+
+ABSL_FLAG_X(bool, alsologtostderr, false,
+            "log messages go to stderr in addition to logfiles");
+ABSL_FLAG_X(bool, logtostderr, false,
+            "log messages go to stderr instead of logfiles");
+ABSL_FLAG_X(int32_t, v, 0, "Show all VLOG(m) messages for m <= this.");
 
 DECLARE_bool(alsologtostderr);
 DECLARE_bool(logtostderr);
@@ -53,9 +65,9 @@ int main(int argc, char **argv) {
   testing::InitGoogleTest(&argc, argv);
   auto args = absl::ParseCommandLine(argc, argv);
   // Forward flags to glog (it doesn't use absl::Flags).
-  FLAGS_alsologtostderr = absl::GetFlag(FLAGS_alsologtostderr_x);
-  FLAGS_logtostderr = absl::GetFlag(FLAGS_logtostderr_x);
-  FLAGS_v = absl::GetFlag(FLAGS_v_x);
+  FLAGS_alsologtostderr = absl::GetFlag(FLAGSx_alsologtostderr);
+  FLAGS_logtostderr = absl::GetFlag(FLAGSx_logtostderr);
+  FLAGS_v = absl::GetFlag(FLAGSx_v);
   google::InitGoogleLogging(args[0]);
   google::InstallFailureSignalHandler();
 
