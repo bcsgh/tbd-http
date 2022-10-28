@@ -1,12 +1,13 @@
 workspace(name = "tbd_server")
 
 load("@bazel_tools//tools/build_defs/repo:git.bzl", "git_repository")
+load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 
 git_repository(
     name = "rules_foreign_cc",
-    commit = "f76d9281bd7ae1f36179740ba20db3d58cd3b7a3",  # current as of 2021/12/17
+    commit = "c923238c6dc5a35c233a4acca28d90a0b1816836",  # current as of 2022/10/27
     remote = "https://github.com/bazelbuild/rules_foreign_cc.git",
-    shallow_since = "1639486112 +0000",
+    shallow_since = "1666910343 +0100",
 )
 
 load("@rules_foreign_cc//foreign_cc:repositories.bzl", "rules_foreign_cc_dependencies")
@@ -14,11 +15,19 @@ load("@rules_foreign_cc//foreign_cc:repositories.bzl", "rules_foreign_cc_depende
 rules_foreign_cc_dependencies([])
 
 #############################################
+# Bazel Skylib.
+http_archive(
+    name = "bazel_skylib",
+    urls = ["https://github.com/bazelbuild/bazel-skylib/releases/download/1.2.1/bazel-skylib-1.2.1.tar.gz"],
+    sha256 = "f7be3474d42aae265405a592bb7da8e171919d74c16f082a5457840f06054728",
+)
+
+#############################################
 git_repository(
     name = "bazel_rules",
-    commit = "69f0ea11bbea5166cf0e735cda098736c2386aca",  # current as of 2021/12/17
+    commit = "44423acf159eade80e8daee0db8ad81246052c91",  # current as of 2022/10/27
     remote = "https://github.com/bcsgh/bazel_rules.git",
-    shallow_since = "1639764084 -0800",
+    shallow_since = "1653616779 -0700",
 )
 
 load("@bazel_rules//repositories:repositories.bzl", "eigen", "jsoncpp", "libhttpserver", "microhttpd")
@@ -26,9 +35,9 @@ load("@bazel_rules//repositories:repositories.bzl", "eigen", "jsoncpp", "libhttp
 #############################################
 git_repository(
     name = "io_bazel_rules_docker",
-    commit = "8a4f73fb29a64ba813087220b200f49a1ca10faa",  # current as of 2021/12/17
+    commit = "e981b2a294a05a613fe3099d1b7d39e29479cb34",  # current as of 2022/10/25
     remote = "https://github.com/bazelbuild/rules_docker.git",
-    shallow_since = "1639679529 -0800",
+    shallow_since = "1665056147 +0100",
 )
 
 load("@io_bazel_rules_docker//repositories:repositories.bzl", container_repositories = "repositories")
@@ -57,41 +66,41 @@ rules_closure_toolchains()
 # needed by com_github_glog_glog
 git_repository(
     name = "com_github_gflags_gflags",
-    commit = "827c769e5fc98e0f2a34c47cef953cc6328abced",  # current as of 2021/02/17
+    commit = "a738fdf9338412f83ab3f26f31ac11ed3f3ec4bd",  # current as of 2022/10/25
     remote = "https://github.com/gflags/gflags.git",
-    shallow_since = "1604052972 +0000",
+    shallow_since = "1658955969 +0100",
 )
 
 #############################################
 git_repository(
     name = "com_github_glog_glog",
-    commit = "9dc1107f88d3a1613d61b80040d83c1c1acbac3d",  # current as of 2021/12/17
+    commit = "05fbc65278db1aa545ca5cb743c31bc717a48d0f",  # current as of 2022/10/25
     remote = "https://github.com/google/glog.git",
-    shallow_since = "1639566274 +0100",
+    shallow_since = "1663772402 +0200",
 )
 
 #############################################
 git_repository(
     name = "com_google_absl",
-    commit = "52d41a9ec23e39db7e2cbce5c9449506cf2d3a5c",  # current as of 2021/12/17
+    commit = "827940038258b35a29279d8c65b4b4ca0a676f8d",  # current as of 2022/10/27
     remote = "https://github.com/abseil/abseil-cpp.git",
-    shallow_since = "1639580175 -0500",
+    shallow_since = "1666903548 -0700",
 )
 
 #############################################
 git_repository(
     name = "com_google_googletest",
-    commit = "97a467571a0f615a4d96e79e4399c43221ca1232",  # current as of 2021/12/17
+    commit = "3026483ae575e2de942db5e760cf95e973308dd5",  # current as of 2022/10/25
     remote = "https://github.com/google/googletest.git",
-    shallow_since = "1639586168 -0800",
+    shallow_since = "1666712359 -0700",
 )
 
 #############################################
 git_repository(
     name = "com_github_bcsgh_tbd",
-    commit = "a3d9fc595c29dfa26783d4dcd5cc99e1798712ed",  # current as of 2021/12/17
+    commit = "873e3ca410fecc3882ed69e388accbf82469672a",  # current as of 2022/10/27
     remote = "https://github.com/bcsgh/tbd.git",
-    shallow_since = "1639765987 -0800",
+    shallow_since = "1666918747 -0700",
 )
 
 #############################################

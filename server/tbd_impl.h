@@ -48,10 +48,10 @@ class Static : public httpserver::http_resource {
     data_(std::move(data)),
     mime_(std::move(mime)) {}
 
-  const std::shared_ptr<http_response> render(const http_request&) override {
+  std::shared_ptr<http_response> render(const http_request&) override {
     return render();
   }
-  const std::shared_ptr<http_response> render() {
+  std::shared_ptr<http_response> render() {
     return std::make_unique<httpserver::string_response>(
         data_, http_utils::http_ok, mime_);
   }
@@ -62,7 +62,7 @@ class Static : public httpserver::http_resource {
 
 class TbdServer_JSON : public httpserver::http_resource {
  public:
-  const std::shared_ptr<http_response> render(const http_request&) override;
+  std::shared_ptr<http_response> render(const http_request&) override;
   std::pair<std::string, int> render(const std::string&);
 };
 

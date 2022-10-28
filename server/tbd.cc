@@ -68,7 +68,7 @@ class Sink : public tbd::ProcessOutput {
   std::vector<std::string> &errs;
 };
 
-const std::shared_ptr<http_response> TbdServer_JSON::render(const http_request& req) {
+std::shared_ptr<http_response> TbdServer_JSON::render(const http_request& req) {
   const auto body = req.get_content();
   auto ret = render(body);
   return std::make_unique<httpserver::string_response>(
