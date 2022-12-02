@@ -8,10 +8,10 @@ cc_binary(
     visibility = ["//visibility:public"],
     deps = [
         ":server_lib",
-        "@com_github_gflags_gflags//:gflags",
-        "@com_github_glog_glog//:glog",
         "@com_google_absl//absl/flags:flag",
         "@com_google_absl//absl/flags:parse",
+        "@com_google_absl//absl/log:initialize",
+        "@com_google_absl//absl/log:log",
     ],
 )
 
@@ -19,9 +19,10 @@ cc_library(
     name = "test_main",
     srcs = ["test_main.cc"],
     deps = [
-        "@com_github_glog_glog//:glog",
         "@com_google_absl//absl/flags:flag",
         "@com_google_absl//absl/flags:parse",
+        "@com_google_absl//absl/log:initialize",
+        "@com_google_absl//absl/log:log",
         "@com_google_absl//absl/time",
         "@com_google_googletest//:gtest",
     ],
@@ -34,8 +35,8 @@ cc_library(
     deps = [
         ":tbd",
         "@com_github_etr_libhttpserver//:libhttpserver",
-        "@com_github_glog_glog//:glog",
         "@com_google_absl//absl/flags:flag",
+        "@com_google_absl//absl/log:log",
     ],
 )
 
@@ -51,9 +52,9 @@ cc_library(
         "@com_github_bcsgh_tbd//tbd:tbd_lib",
         # "@com_github_bcsgh_tbd//tbd:preamble",
         "@com_github_etr_libhttpserver//:libhttpserver",
-        "@com_github_glog_glog//:glog",
         "@com_github_open_source_parsers_jsoncpp//:json",
         "@com_google_absl//absl/flags:flag",
+        "@com_google_absl//absl/log:log",
         "@com_google_absl//absl/strings",
     ],
 )

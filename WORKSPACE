@@ -27,7 +27,7 @@ git_repository(
     name = "bazel_rules",
     commit = "44423acf159eade80e8daee0db8ad81246052c91",  # current as of 2022/10/27
     remote = "https://github.com/bcsgh/bazel_rules.git",
-    shallow_since = "1653616779 -0700",
+    shallow_since = "1666916861 -0700",
 )
 
 load("@bazel_rules//repositories:repositories.bzl", "eigen", "jsoncpp", "libhttpserver", "microhttpd")
@@ -63,23 +63,6 @@ rules_closure_dependencies()
 rules_closure_toolchains()
 
 #############################################
-# needed by com_github_glog_glog
-git_repository(
-    name = "com_github_gflags_gflags",
-    commit = "a738fdf9338412f83ab3f26f31ac11ed3f3ec4bd",  # current as of 2022/10/25
-    remote = "https://github.com/gflags/gflags.git",
-    shallow_since = "1658955969 +0100",
-)
-
-#############################################
-git_repository(
-    name = "com_github_glog_glog",
-    commit = "05fbc65278db1aa545ca5cb743c31bc717a48d0f",  # current as of 2022/10/25
-    remote = "https://github.com/google/glog.git",
-    shallow_since = "1663772402 +0200",
-)
-
-#############################################
 git_repository(
     name = "com_google_absl",
     commit = "827940038258b35a29279d8c65b4b4ca0a676f8d",  # current as of 2022/10/27
@@ -98,9 +81,9 @@ git_repository(
 #############################################
 git_repository(
     name = "com_github_bcsgh_tbd",
-    commit = "873e3ca410fecc3882ed69e388accbf82469672a",  # current as of 2022/10/27
+    commit = "70b02875a30b236729e7c0122dc61034d453889c",  # current as of 2022/12/02
     remote = "https://github.com/bcsgh/tbd.git",
-    shallow_since = "1666918747 -0700",
+    shallow_since = "1670013736 -0800",
 )
 
 #############################################

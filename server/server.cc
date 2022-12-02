@@ -31,7 +31,7 @@
 #include <string>
 
 #include "absl/flags/flag.h"
-#include "glog/logging.h"
+#include "absl/log/log.h"
 #include "httpserver.hpp"
 #include "server/tbd.h"
 

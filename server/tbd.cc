@@ -39,8 +39,8 @@
 #include <httpserver.hpp>
 
 #include "absl/flags/flag.h"
+#include "absl/log/log.h"
 #include "absl/strings/str_join.h"
-#include "glog/logging.h"
 #include "json/json.h"
 #include "server/static_embed_emebed_data.h"
 #include "server/tbd_impl.h"
