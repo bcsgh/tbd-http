@@ -25,9 +25,9 @@ http_archive(
 #############################################
 git_repository(
     name = "bazel_rules",
-    commit = "44423acf159eade80e8daee0db8ad81246052c91",  # current as of 2022/10/27
+    commit = "19c3dc86fd46d68f13fdb51717ff871e32e5447a",  # current as of 2022/12/27
     remote = "https://github.com/bcsgh/bazel_rules.git",
-    shallow_since = "1666916861 -0700",
+    shallow_since = "1672162894 -0800",
 )
 
 load("@bazel_rules//repositories:repositories.bzl", "eigen", "jsoncpp", "libhttpserver", "microhttpd")
@@ -81,9 +81,9 @@ git_repository(
 #############################################
 git_repository(
     name = "com_github_bcsgh_tbd",
-    commit = "70b02875a30b236729e7c0122dc61034d453889c",  # current as of 2022/12/02
+    commit = "baf0699c0265811a0e364f6756d0b6c5a2bd85dd",  # current as of 2022/12/02
     remote = "https://github.com/bcsgh/tbd.git",
-    shallow_since = "1670013736 -0800",
+    shallow_since = "1672197173 -0800",
 )
 
 #############################################
