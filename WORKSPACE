@@ -15,24 +15,6 @@ load("@rules_foreign_cc//foreign_cc:repositories.bzl", "rules_foreign_cc_depende
 rules_foreign_cc_dependencies([])
 
 #############################################
-# Bazel Skylib.
-http_archive(
-    name = "bazel_skylib",
-    urls = ["https://github.com/bazelbuild/bazel-skylib/releases/download/1.2.1/bazel-skylib-1.2.1.tar.gz"],
-    sha256 = "f7be3474d42aae265405a592bb7da8e171919d74c16f082a5457840f06054728",
-)
-
-#############################################
-git_repository(
-    name = "bazel_rules",
-    commit = "19c3dc86fd46d68f13fdb51717ff871e32e5447a",  # current as of 2022/12/27
-    remote = "https://github.com/bcsgh/bazel_rules.git",
-    shallow_since = "1672162894 -0800",
-)
-
-load("@bazel_rules//repositories:repositories.bzl", "eigen", "jsoncpp", "libhttpserver", "microhttpd")
-
-#############################################
 git_repository(
     name = "io_bazel_rules_docker",
     commit = "e981b2a294a05a613fe3099d1b7d39e29479cb34",  # current as of 2022/10/25
@@ -81,10 +63,21 @@ git_repository(
 #############################################
 git_repository(
     name = "com_github_bcsgh_tbd",
-    commit = "baf0699c0265811a0e364f6756d0b6c5a2bd85dd",  # current as of 2022/12/02
+    commit = "fb38bbbe2ba030bcb42b88784d97288c9438a56f",  # current as of 2023/01/03
     remote = "https://github.com/bcsgh/tbd.git",
-    shallow_since = "1672197173 -0800",
+    shallow_since = "1672780968 -0800",
 )
+
+#############################################
+git_repository(
+    name = "bazel_rules",
+    commit = "8e3e79e7555ab797ceef2918d1fcdaffdacac6dc",  # current as of 2023/01/02
+    remote = "https://github.com/bcsgh/bazel_rules.git",
+    shallow_since = "1672689339 -0800",
+)
+
+load("@bazel_rules//cc_embed_data:cc_embed_data_deps.bzl", cc_embed_data_deps = "get_deps")
+load("@bazel_rules//repositories:repositories.bzl", "eigen", "jsoncpp", "libhttpserver", "microhttpd")
 
 #############################################
 eigen()
@@ -94,6 +87,11 @@ jsoncpp()
 libhttpserver()
 
 microhttpd()
+
+cc_embed_data_deps()
+
+load("@com_github_bcsgh_tbd//tbd:deps.bzl", tbd_deps = "get_deps")
+tbd_deps()
 
 #############################################
 load("@io_bazel_rules_docker//container:container.bzl", "container_pull")
