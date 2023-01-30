@@ -63,21 +63,24 @@ git_repository(
 #############################################
 git_repository(
     name = "com_github_bcsgh_tbd",
-    commit = "fb38bbbe2ba030bcb42b88784d97288c9438a56f",  # current as of 2023/01/03
+    commit = "4e3ad2fb78c2c7c127417e38431cfc9f91894819",  # current as of 2023/01/30
     remote = "https://github.com/bcsgh/tbd.git",
-    shallow_since = "1672780968 -0800",
+    shallow_since = "1675099224 -0800",
 )
 
 #############################################
 git_repository(
     name = "bazel_rules",
-    commit = "8e3e79e7555ab797ceef2918d1fcdaffdacac6dc",  # current as of 2023/01/02
+    commit = "3404db100ba321134ef63c6c872ce8dca6db024d",  # current as of 2023/01/29
     remote = "https://github.com/bcsgh/bazel_rules.git",
-    shallow_since = "1672689339 -0800",
+    shallow_since = "1675037889 -0800",
 )
 
 load("@bazel_rules//cc_embed_data:cc_embed_data_deps.bzl", cc_embed_data_deps = "get_deps")
 load("@bazel_rules//repositories:repositories.bzl", "eigen", "jsoncpp", "libhttpserver", "microhttpd")
+
+#############################################
+register_toolchains("@bazel_rules//parser:linux_flex_bison")
 
 #############################################
 eigen()
