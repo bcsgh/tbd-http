@@ -8,4 +8,5 @@ container_image(
     entrypoint = ["/server"],
     files = ["//server"],
     repository = "local",
+    tags = ["manual"],
 )
