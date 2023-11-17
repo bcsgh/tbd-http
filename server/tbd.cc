@@ -75,7 +75,7 @@ std::shared_ptr<http_response> TbdServer_JSON::render(const http_request& req) {
       ret.first, ret.second, "application/json");
 }
 
-std::pair<std::string, int> TbdServer_JSON::render(const std::string& body) {
+std::pair<std::string, int> TbdServer_JSON::render(const std::string_view body) {
   std::shared_ptr<void> cleanup_log_file;
   if (!absl::GetFlag(FLAGS_tbd_post_log_dir).empty()) {
     std::shared_ptr<char[]> tmp(
@@ -99,7 +99,7 @@ std::pair<std::string, int> TbdServer_JSON::render(const std::string& body) {
 
   std::vector<std::string> errs;
   Sink sink{errs};
-  auto processed = tbd::ProcessInput("source.tbd", body, sink);
+  auto processed = tbd::ProcessInput("source.tbd", std::string{body}, sink);
 
   if (!processed) {
     ret["errors"] = absl::StrJoin(errs, "");

@@ -17,9 +17,9 @@ rules_foreign_cc_dependencies([])
 #############################################
 git_repository(
     name = "io_bazel_rules_docker",
-    commit = "e981b2a294a05a613fe3099d1b7d39e29479cb34",  # current as of 2022/10/25
+    commit = "3040e1fd74659a52d1cdaff81359f57ee0e2bb41",  # current as of 2023/11/12
     remote = "https://github.com/bazelbuild/rules_docker.git",
-    shallow_since = "1665056147 +0100",
+    shallow_since = "1696279906 -0700",
 )
 
 load("@io_bazel_rules_docker//repositories:repositories.bzl", container_repositories = "repositories")
@@ -47,33 +47,33 @@ rules_closure_toolchains()
 #############################################
 git_repository(
     name = "com_google_absl",
-    commit = "827940038258b35a29279d8c65b4b4ca0a676f8d",  # current as of 2022/10/27
+    commit = "483a2d59e649179ea9d9bc4d808f6c9d16646f9d",  # current as of 2023/11/12
     remote = "https://github.com/abseil/abseil-cpp.git",
-    shallow_since = "1666903548 -0700",
+    shallow_since = "1699496241 -0800",
 )
 
 #############################################
 git_repository(
     name = "com_google_googletest",
-    commit = "3026483ae575e2de942db5e760cf95e973308dd5",  # current as of 2022/10/25
+    commit = "b10fad38c4026a29ea6561ab15fc4818170d1c10",  # current as of 2023/11/12
     remote = "https://github.com/google/googletest.git",
-    shallow_since = "1666712359 -0700",
+    shallow_since = "1698701593 -0700",
 )
 
 #############################################
 git_repository(
     name = "com_github_bcsgh_tbd",
-    commit = "4e3ad2fb78c2c7c127417e38431cfc9f91894819",  # current as of 2023/01/30
+    commit = "c606c32f611abb33f0a7f71d0d2f087c8dbc1288",  # current as of 2023/11/16
     remote = "https://github.com/bcsgh/tbd.git",
-    shallow_since = "1675099224 -0800",
+    shallow_since = "1700185410 -0800",
 )
 
 #############################################
 git_repository(
     name = "bazel_rules",
-    commit = "3404db100ba321134ef63c6c872ce8dca6db024d",  # current as of 2023/01/29
+    commit = "be9e3fa50c41cf9a1e93d2288ce02c67047d71c3",  # current as of 2023/11/16
     remote = "https://github.com/bcsgh/bazel_rules.git",
-    shallow_since = "1675037889 -0800",
+    shallow_since = "1700184387 -0800",
 )
 
 load("@bazel_rules//cc_embed_data:cc_embed_data_deps.bzl", cc_embed_data_deps = "get_deps")

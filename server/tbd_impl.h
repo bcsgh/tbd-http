@@ -63,7 +63,7 @@ class Static : public httpserver::http_resource {
 class TbdServer_JSON : public httpserver::http_resource {
  public:
   std::shared_ptr<http_response> render(const http_request&) override;
-  std::pair<std::string, int> render(const std::string&);
+  std::pair<std::string, int> render(const std::string_view);
 };
 
 std::string PreambleUnits();
