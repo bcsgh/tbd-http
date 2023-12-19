@@ -10,10 +10,6 @@ git_repository(
     shallow_since = "1666910343 +0100",
 )
 
-load("@rules_foreign_cc//foreign_cc:repositories.bzl", "rules_foreign_cc_dependencies")
-
-rules_foreign_cc_dependencies([])
-
 #############################################
 git_repository(
     name = "io_bazel_rules_docker",
@@ -21,14 +17,6 @@ git_repository(
     remote = "https://github.com/bazelbuild/rules_docker.git",
     shallow_since = "1696279906 -0700",
 )
-
-load("@io_bazel_rules_docker//repositories:repositories.bzl", container_repositories = "repositories")
-
-container_repositories()
-
-load("@io_bazel_rules_docker//repositories:deps.bzl", container_deps = "deps")
-
-container_deps()
 
 #############################################
 # https://github.com/bazelbuild/rules_closure
@@ -40,7 +28,7 @@ git_repository(
 
 load("@io_bazel_rules_closure//closure:repositories.bzl", "rules_closure_dependencies", "rules_closure_toolchains")
 
-rules_closure_dependencies()
+rules_closure_dependencies(omit_bazel_skylib=True, omit_rules_cc=True)
 
 rules_closure_toolchains()
 
@@ -71,13 +59,13 @@ git_repository(
 #############################################
 git_repository(
     name = "bazel_rules",
-    commit = "be9e3fa50c41cf9a1e93d2288ce02c67047d71c3",  # current as of 2023/11/16
+    commit = "e282d53e3234a6b2260efc3cd4e6426e1a9ed328",  # current as of 2023/12/06
     remote = "https://github.com/bcsgh/bazel_rules.git",
-    shallow_since = "1700184387 -0800",
+    shallow_since = "1701907650 -0800",
 )
 
 load("@bazel_rules//cc_embed_data:cc_embed_data_deps.bzl", cc_embed_data_deps = "get_deps")
-load("@bazel_rules//repositories:repositories.bzl", "eigen", "jsoncpp", "libhttpserver", "microhttpd")
+load("@bazel_rules//repositories:repositories.bzl", "eigen", "jsoncpp", "libhttpserver", "load_skylib", "microhttpd", "load_rules_cc")
 
 #############################################
 register_toolchains("@bazel_rules//parser:linux_flex_bison")
@@ -89,12 +77,27 @@ jsoncpp()
 
 libhttpserver()
 
+load_rules_cc()
+
+load_skylib()
+
 microhttpd()
 
 cc_embed_data_deps()
 
 load("@com_github_bcsgh_tbd//tbd:deps.bzl", tbd_deps = "get_deps")
 tbd_deps()
+
+#############################################
+load("@rules_foreign_cc//foreign_cc:repositories.bzl", "rules_foreign_cc_dependencies")
+rules_foreign_cc_dependencies([])
+
+
+load("@io_bazel_rules_docker//repositories:repositories.bzl", container_repositories = "repositories")
+container_repositories()
+
+load("@io_bazel_rules_docker//repositories:deps.bzl", container_deps = "deps")
+container_deps()
 
 #############################################
 load("@io_bazel_rules_docker//container:container.bzl", "container_pull")
