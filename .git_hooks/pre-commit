@@ -8,6 +8,7 @@ git checkout-index --prefix=${NEWR}/ -a
 cd $NEWR
 
 echo common --noincompatible_sandbox_hermetic_tmp  >> .bazelrc  # See https://github.com/bazelbuild/bazel/issues/20515
+echo build --spawn_strategy=local  # https://github.com/bazelbuild/bazel/issues/20408
 if time bazel --output_base=$OUTPUT_BASE --nosystem_rc test --config=ci ... -k;
 then
   bazel clean --expunge

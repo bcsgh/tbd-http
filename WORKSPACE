@@ -26,16 +26,28 @@ git_repository(
 )
 
 #############################################
+git_repository(
+    name = "com_google_protobuf",
+    remote = "https://github.com/protocolbuffers/protobuf.git",
+    commit = "08ec050c44c3ffe3074f0e14a4a47095d14dd855",  # current as of 2023/11/06
+    shallow_since = "1699282866 -0800",
+)
+
 # https://github.com/bazelbuild/rules_closure
 git_repository(
     name = "io_bazel_rules_closure",
     remote = "https://github.com/bazelbuild/rules_closure.git",
-    tag = "0.11.0",
+    commit = "f19dc96c1dad6990b67dc3a35818cde5b7042bbb",  # pinned back to 2023/10?18
+    shallow_since = "1697673471 -0700",
 )
 
 load("@io_bazel_rules_closure//closure:repositories.bzl", "rules_closure_dependencies", "rules_closure_toolchains")
 
-rules_closure_dependencies(omit_bazel_skylib=True, omit_rules_cc=True)
+rules_closure_dependencies(
+    omit_bazel_skylib=True,
+    omit_com_google_protobuf=True,
+    omit_rules_cc=True,
+)
 
 rules_closure_toolchains()
 
@@ -98,6 +110,9 @@ tbd_deps()
 #############################################
 load("@rules_foreign_cc//foreign_cc:repositories.bzl", "rules_foreign_cc_dependencies")
 rules_foreign_cc_dependencies([])
+
+load("@com_google_protobuf//:protobuf_deps.bzl", "protobuf_deps")
+protobuf_deps()
 
 #############################################
 load("@rules_oci//oci:dependencies.bzl", "rules_oci_dependencies")
