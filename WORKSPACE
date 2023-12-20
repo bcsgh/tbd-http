@@ -37,8 +37,8 @@ git_repository(
 git_repository(
     name = "io_bazel_rules_closure",
     remote = "https://github.com/bazelbuild/rules_closure.git",
-    commit = "f19dc96c1dad6990b67dc3a35818cde5b7042bbb",  # pinned back to 2023/10?18
-    shallow_since = "1697673471 -0700",
+    commit = "ac78ac89f554e8b18c497d306832dbb86f51087a",  # pinned back to 2023/10?18
+    shallow_since = "1699644137 -0800",
 )
 
 load("@io_bazel_rules_closure//closure:repositories.bzl", "rules_closure_dependencies", "rules_closure_toolchains")
