@@ -3,8 +3,8 @@
 
 version: "3.3"
 services:
-  tbd:
-    image: tbd_http
+  {NAME}:
+    image: {IMAGE}
     restart: always
     command:
       - "--http_port={PORT_HTTP}"

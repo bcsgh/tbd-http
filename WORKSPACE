@@ -12,10 +12,17 @@ git_repository(
 
 #############################################
 git_repository(
-    name = "io_bazel_rules_docker",
-    commit = "3040e1fd74659a52d1cdaff81359f57ee0e2bb41",  # current as of 2023/11/12
-    remote = "https://github.com/bazelbuild/rules_docker.git",
-    shallow_since = "1696279906 -0700",
+    name = "rules_oci",
+    commit = "35a2baf586d2f30c332a566e71d0c8f0908acb10",  # current release (v1.4.3) as of 2023/12/18
+    remote = "https://github.com/bazel-contrib/rules_oci.git",
+    shallow_since = "1700591895 -0800",
+)
+
+git_repository(
+    name = "rules_pkg",
+    remote = "https://github.com/bazelbuild/rules_pkg.git",
+    commit = "6c2e32553b740aec1d6fb540fb224487b5ce26a2",  # release (v0.9.1) 2023/05/02
+    shallow_since = "1683040940 -0400",
 )
 
 #############################################
@@ -92,19 +99,23 @@ tbd_deps()
 load("@rules_foreign_cc//foreign_cc:repositories.bzl", "rules_foreign_cc_dependencies")
 rules_foreign_cc_dependencies([])
 
+#############################################
+load("@rules_oci//oci:dependencies.bzl", "rules_oci_dependencies")
+rules_oci_dependencies()
 
-load("@io_bazel_rules_docker//repositories:repositories.bzl", container_repositories = "repositories")
-container_repositories()
+load("@rules_oci//oci:repositories.bzl", "LATEST_CRANE_VERSION", "oci_register_toolchains")
 
-load("@io_bazel_rules_docker//repositories:deps.bzl", container_deps = "deps")
-container_deps()
+oci_register_toolchains(
+    name = "oci",
+    crane_version = LATEST_CRANE_VERSION,
+)
 
 #############################################
-load("@io_bazel_rules_docker//container:container.bzl", "container_pull")
+load("@rules_oci//oci:pull.bzl", "oci_pull")
 
-container_pull(
+oci_pull(
     name = "ubuntu_20_04",
-    registry = "index.docker.io",
-    repository = "ubuntu",
-    tag = "20.04",
+    # https://gallery.ecr.aws/docker/library/ubuntu
+    digest = "sha256:218bb51abbd1864df8be26166f847547b3851a89999ca7bfceb85ca9b5d2e95d",
+    image = "public.ecr.aws/docker/library/ubuntu",#:20.04",
 )
