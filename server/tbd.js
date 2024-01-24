@@ -25,7 +25,7 @@
 // ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 // POSSIBILITY OF SUCH DAMAGE.
 
-goog.module('TBD.Main');
+goog.module("TBD.Main");
 
 const {DomHelper, TagName, createDom} = goog.require("goog.dom");
 
@@ -36,19 +36,18 @@ const CLASS_MIN_WIDTH = "min_width";
 function Main() {
   const dom = new DomHelper();
 
-  fetch('/preamble.tbd')
-    .then(async function(response) {
-      const output = /** @type{HTMLPreElement}*/(dom.getElement("preamble"));
-      output.innerText = await response.text();
-    });
+  fetch("/preamble.tbd").then(async function(response) {
+    const output = /** @type{HTMLPreElement}*/ (dom.getElement("preamble"));
+    output.innerText = await response.text();
+  });
 
-  fetch('/units')
-    .then(async function(r) {
-      const o = /** @type{HTMLPreElement}*/(dom.getElement("units"));
-      ProcessUnits(r, o);
-    });
+  fetch("/units").then(async function(r) {
+    const o = /** @type{HTMLPreElement}*/ (dom.getElement("units"));
+    ProcessUnits(r, o);
+  });
 
-  const submit_script = /** @type{HTMLButtonElement}*/(dom.getElement("submit_script"));
+  const submit_script =
+      /** @type{HTMLButtonElement}*/ (dom.getElement("submit_script"));
   submit_script.onclick = PostRequest;
 }
 
@@ -79,7 +78,8 @@ async function ProcessUnits(response, output) {
 
   const json = await response.json();
   const /** @type{Object<string, !Array<!string>>}*/ classes = json["types"];
-  const /** @type{Object<string, !Object<string, !number>>}*/ units = json["units"];
+  const /** @type{Object<string, !Object<string, !number>>}*/ units =
+      json["units"];
 
   // Build body.
   let tb = table.appendChild(createDom(TagName.TBODY));
@@ -129,10 +129,11 @@ async function ProcessUnits(response, output) {
  */
 function PostRequest() {
   const dom = new DomHelper();
-  const input_script = /** @type{HTMLTextAreaElement}*/(dom.getElement("input_script"));
+  const input_script =
+      /** @type{HTMLTextAreaElement}*/ (dom.getElement("input_script"));
 
-  fetch('/json', {method: 'POST', body: input_script.value})
-    .then(ProcessResponce);
+  fetch("/json", {method: "POST", body: input_script.value})
+      .then(ProcessResponce);
 }
 
 /**
@@ -141,7 +142,7 @@ function PostRequest() {
  */
 async function ProcessResponce(response) {
   const dom = new DomHelper();
-  const output = /** @type{HTMLSpanElement}*/(dom.getElement("output"));
+  const output = /** @type{HTMLSpanElement}*/ (dom.getElement("output"));
 
   if (response.ok) {
     let json = await response.json();
@@ -149,7 +150,8 @@ async function ProcessResponce(response) {
   } else {
     let json = JSON.parse(await response.text());
     output.innerHTML = "";
-    output.appendChild(document.createElement("pre")).innerText = json["errors"];
+    output.appendChild(document.createElement("pre")).innerText =
+        json["errors"];
   }
 }
 
@@ -164,7 +166,7 @@ function FillTable(output, result) {
   t.border = 1;
   {
     let r = t.appendChild(document.createElement("thead"))
-             .appendChild(document.createElement("tr"));
+                .appendChild(document.createElement("tr"));
     r.appendChild(document.createElement("th")).innerText = "Name ";
     r.appendChild(document.createElement("th")).innerText = "Value ";
     r.appendChild(document.createElement("th")).innerText = "Units ";
