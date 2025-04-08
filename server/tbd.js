@@ -27,27 +27,23 @@
 
 goog.module("TBD.Main");
 
-const {DomHelper, TagName, createDom} = goog.require("goog.dom");
-
 const CLASS_MIN_WIDTH = "min_width";
 /**
  * The entry point.
  */
 function Main() {
-  const dom = new DomHelper();
-
   fetch("/preamble.tbd").then(async function(response) {
-    const output = /** @type{HTMLPreElement}*/ (dom.getElement("preamble"));
+    const output = /** @type{HTMLPreElement}*/ (document.getElementById("preamble"));
     output.innerText = await response.text();
   });
 
   fetch("/units").then(async function(r) {
-    const o = /** @type{HTMLPreElement}*/ (dom.getElement("units"));
+    const o = /** @type{HTMLPreElement}*/ (document.getElementById("units"));
     ProcessUnits(r, o);
   });
 
   const submit_script =
-      /** @type{HTMLButtonElement}*/ (dom.getElement("submit_script"));
+      /** @type{HTMLButtonElement}*/ (document.getElementById("submit_script"));
   submit_script.onclick = PostRequest;
 }
 
@@ -59,22 +55,22 @@ function Main() {
 async function ProcessUnits(response, output) {
   output.innerText = "";
 
-  let table = createDom(TagName.TABLE);
+  let table = document.createElement("table");
   output.appendChild(table);
   table.style.borderCollapse = "collapse";
 
   // Build column headers.
-  let th = createDom(TagName.THEAD);
+  let th = document.createElement("thead");
   table.appendChild(th);
-  th.appendChild(createDom(TagName.TD)).innerText = "Name";
-  th.appendChild(createDom(TagName.TD)).innerText = "Scale";
-  th.appendChild(createDom(TagName.TD)).innerText = "m";
-  th.appendChild(createDom(TagName.TD)).innerText = "kg";
-  th.appendChild(createDom(TagName.TD)).innerText = "s";
-  th.appendChild(createDom(TagName.TD)).innerText = "A";
-  th.appendChild(createDom(TagName.TD)).innerText = "K";
-  th.appendChild(createDom(TagName.TD)).innerText = "mol";
-  th.appendChild(createDom(TagName.TD)).innerText = "cd";
+  th.appendChild(document.createElement("td")).innerText = "Name";
+  th.appendChild(document.createElement("td")).innerText = "Scale";
+  th.appendChild(document.createElement("td")).innerText = "m";
+  th.appendChild(document.createElement("td")).innerText = "kg";
+  th.appendChild(document.createElement("td")).innerText = "s";
+  th.appendChild(document.createElement("td")).innerText = "A";
+  th.appendChild(document.createElement("td")).innerText = "K";
+  th.appendChild(document.createElement("td")).innerText = "mol";
+  th.appendChild(document.createElement("td")).innerText = "cd";
 
   const json = await response.json();
   const /** @type{Object<string, !Array<!string>>}*/ classes = json["types"];
@@ -82,7 +78,7 @@ async function ProcessUnits(response, output) {
       json["units"];
 
   // Build body.
-  let tb = table.appendChild(createDom(TagName.TBODY));
+  let tb = table.appendChild(document.createElement("tbody"));
   for (let v in classes) {
     let first = true;
     const types = classes[v];
@@ -91,25 +87,33 @@ async function ProcessUnits(response, output) {
       const unit = units[t];
       if (!unit) continue;
 
-      let r = createDom(TagName.TR);
+      let r = document.createElement("tr");
       tb.appendChild(r);
 
-      r.appendChild(createDom(TagName.TD)).innerText = t;
-      r.appendChild(createDom(TagName.TD)).innerText = unit["scale"];
+      r.appendChild(document.createElement("td")).innerText = t;
+      r.appendChild(document.createElement("td")).innerText = unit["scale"];
 
       if (first) {
         first = false;
         r.classList.add("firstrow");
 
         // Extra stuff for the first of each class of unit.
-        const m    = r.appendChild(createDom(TagName.TD, CLASS_MIN_WIDTH));
-        const kg   = r.appendChild(createDom(TagName.TD, CLASS_MIN_WIDTH));
-        const s    = r.appendChild(createDom(TagName.TD, CLASS_MIN_WIDTH));
-        const A    = r.appendChild(createDom(TagName.TD, CLASS_MIN_WIDTH));
-        const K    = r.appendChild(createDom(TagName.TD, CLASS_MIN_WIDTH));
-        const mol  = r.appendChild(createDom(TagName.TD, CLASS_MIN_WIDTH));
-        const cd   = r.appendChild(createDom(TagName.TD, CLASS_MIN_WIDTH));
-        const type = r.appendChild(createDom(TagName.TD));
+        const m    = /** @type{HTMLElement}*/ (r.appendChild(document.createElement("td")));
+        const kg   = /** @type{HTMLElement}*/ (r.appendChild(document.createElement("td")));
+        const s    = /** @type{HTMLElement}*/ (r.appendChild(document.createElement("td")));
+        const A    = /** @type{HTMLElement}*/ (r.appendChild(document.createElement("td")));
+        const K    = /** @type{HTMLElement}*/ (r.appendChild(document.createElement("td")));
+        const mol  = /** @type{HTMLElement}*/ (r.appendChild(document.createElement("td")));
+        const cd   = /** @type{HTMLElement}*/ (r.appendChild(document.createElement("td")));
+        const type = /** @type{HTMLElement}*/ (r.appendChild(document.createElement("td")));
+
+        m.classList.add(CLASS_MIN_WIDTH);
+        kg.classList.add(CLASS_MIN_WIDTH);
+        s.classList.add(CLASS_MIN_WIDTH);
+        A.classList.add(CLASS_MIN_WIDTH);
+        K.classList.add(CLASS_MIN_WIDTH);
+        mol.classList.add(CLASS_MIN_WIDTH);
+        cd.classList.add(CLASS_MIN_WIDTH);
 
         if (unit["L"])   m.innerText = unit["L"];
         if (unit["M"])  kg.innerText = unit["M"];
@@ -128,9 +132,8 @@ async function ProcessUnits(response, output) {
  * Process the user input server side.
  */
 function PostRequest() {
-  const dom = new DomHelper();
   const input_script =
-      /** @type{HTMLTextAreaElement}*/ (dom.getElement("input_script"));
+      /** @type{HTMLTextAreaElement}*/ (document.getElementById("input_script"));
 
   fetch("/json", {method: "POST", body: input_script.value})
       .then(ProcessResponce);
@@ -141,8 +144,7 @@ function PostRequest() {
  * @param {Response} response Fetch response.
  */
 async function ProcessResponce(response) {
-  const dom = new DomHelper();
-  const output = /** @type{HTMLSpanElement}*/ (dom.getElement("output"));
+  const output = /** @type{HTMLSpanElement}*/ (document.getElementById("output"));
 
   if (response.ok) {
     let json = await response.json();

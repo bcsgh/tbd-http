@@ -79,9 +79,6 @@ closure_js_library(
         "tbd.js",
         "tbd_main.js",
     ],
-    deps = [
-        "@com_google_javascript_closure_library//closure/goog/dom",
-    ],
 )
 
 closure_js_test(
