@@ -1,6 +1,4 @@
 load("@bazel_rules//cc_embed_data:cc_embed_data.bzl", "cc_embed_data")
-load("@io_bazel_rules_closure//closure:defs.bzl", "closure_js_binary", "closure_js_library")
-load("@io_bazel_rules_closure//closure/testing:closure_js_test.bzl", "closure_js_test")
 
 cc_binary(
     name = "server",
@@ -71,33 +69,6 @@ cc_test(
         "@com_google_absl//absl/strings",
         "@com_google_googletest//:gtest",
     ],
-)
-
-closure_js_library(
-    name = "tbd_js",
-    srcs = [
-        "tbd.js",
-        "tbd_main.js",
-    ],
-)
-
-closure_js_test(
-    name = "tbd_js_test",
-    srcs = ["tbd_test.js"],
-    entry_points = ["server/tbd_test.js"],
-    suppress = ["moduleLoad"],
-    deps = [
-        ":tbd_js",
-        "@com_google_javascript_closure_library//closure/goog/testing:asserts",
-        "@com_google_javascript_closure_library//closure/goog/testing:jsunit",
-        "@com_google_javascript_closure_library//closure/goog/testing:testsuite",
-    ],
-)
-
-closure_js_binary(
-    name = "tbd_main_js",
-    entry_points = ["TBD.Start"],
-    deps = [":tbd_js"],
 )
 
 cc_embed_data(
