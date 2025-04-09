@@ -187,9 +187,22 @@ std::string PreambleUnits() {
 
 TbdServer::Impl::Impl() :
     html(std::string{server_ui_main_html()}, "text/html"),
-    js(std::string{APP_JS()}, "text/javascript"),
+    js("", "text/plain"),
     units(impl::PreambleUnits(), "application/json"),
-    preamble(std::string{::tbd_preamble_tbd()}, "text/x.tbd") {}
+    preamble(std::string{::tbd_preamble_tbd()}, "text/x.tbd") {
+  // Grab whichever version of the JS exists.
+  std::set<std::string> keep{
+      "server/ui/app_min.js",
+      "server/ui/app_bundel.js",
+  };
+  for (const auto &i : EmbedIndex()) {
+    if (keep.find(std::string{i.first}) != keep.end()) {
+      js = impl::Static{std::string{i.second}, "text/javascript"};
+      return;
+    }
+  }
+  LOG(FATAL) << "JS not found";
+}
 
 TbdServer::TbdServer() : impl_(std::make_unique<TbdServer::Impl>()) {}
 TbdServer::~TbdServer() = default;

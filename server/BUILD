@@ -32,10 +32,6 @@ cc_library(
         "tbd_impl.h",
     ],
     hdrs = ["tbd.h"],
-    local_defines = select({
-        "//:debug_build": ["APP_JS=server_ui_app_bundel_js"],
-        "//conditions:default": ["APP_JS=server_ui_app_min_js"],
-    }),
     deps = [
         ":static_embed",
         "@abseil-cpp//absl/flags:flag",

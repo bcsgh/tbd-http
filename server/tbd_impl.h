@@ -57,7 +57,7 @@ class Static : public httpserver::http_resource {
   }
 
  private:
-  const std::string data_, mime_;
+  std::string data_, mime_;
 };
 
 class TbdServer_JSON : public httpserver::http_resource {
