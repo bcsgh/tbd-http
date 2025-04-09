@@ -1,4 +1,4 @@
-load("@bazel_rules//cc_embed_data:cc_embed_data.bzl", "cc_embed_data")
+load("@com_github_bcsgh_cc_embed_data//cc_embed_data:cc_embed_data.bzl", "cc_embed_data")
 
 cc_binary(
     name = "server",
@@ -6,23 +6,10 @@ cc_binary(
     visibility = ["//visibility:public"],
     deps = [
         ":server_lib",
-        "@com_google_absl//absl/flags:flag",
-        "@com_google_absl//absl/flags:parse",
-        "@com_google_absl//absl/log:initialize",
-        "@com_google_absl//absl/log:log",
-    ],
-)
-
-cc_library(
-    name = "test_main",
-    srcs = ["test_main.cc"],
-    deps = [
-        "@com_google_absl//absl/flags:flag",
-        "@com_google_absl//absl/flags:parse",
-        "@com_google_absl//absl/log:initialize",
-        "@com_google_absl//absl/log:log",
-        "@com_google_absl//absl/time",
-        "@com_google_googletest//:gtest",
+        "@abseil-cpp//absl/flags:flag",
+        "@abseil-cpp//absl/flags:parse",
+        "@abseil-cpp//absl/log:initialize",
+        "@abseil-cpp//absl/log:log",
     ],
 )
 
@@ -32,9 +19,9 @@ cc_library(
     hdrs = ["server.h"],
     deps = [
         ":tbd",
+        "@abseil-cpp//absl/flags:flag",
+        "@abseil-cpp//absl/log:log",
         "@com_github_etr_libhttpserver//:libhttpserver",
-        "@com_google_absl//absl/flags:flag",
-        "@com_google_absl//absl/log:log",
     ],
 )
 
@@ -47,13 +34,13 @@ cc_library(
     hdrs = ["tbd.h"],
     deps = [
         ":static_embed",
+        "@abseil-cpp//absl/flags:flag",
+        "@abseil-cpp//absl/log:log",
+        "@abseil-cpp//absl/strings",
         "@com_github_bcsgh_tbd//tbd:tbd_lib",
         # "@com_github_bcsgh_tbd//tbd:preamble",
         "@com_github_etr_libhttpserver//:libhttpserver",
-        "@com_github_open_source_parsers_jsoncpp//:json",
-        "@com_google_absl//absl/flags:flag",
-        "@com_google_absl//absl/log:log",
-        "@com_google_absl//absl/strings",
+        "@jsoncpp",
     ],
 )
 
@@ -62,12 +49,12 @@ cc_test(
     srcs = ["tbd_test.cc"],
     deps = [
         ":tbd",
-        ":test_main",
+        "@abseil-cpp//absl/memory",
+        "@abseil-cpp//absl/strings",
+        "@com_github_bcsgh_test_base//test_base:test_main",
         "@com_github_etr_libhttpserver//:libhttpserver",
-        "@com_github_open_source_parsers_jsoncpp//:json",
-        "@com_google_absl//absl/memory",
-        "@com_google_absl//absl/strings",
-        "@com_google_googletest//:gtest",
+        "@googletest//:gtest",
+        "@jsoncpp",
     ],
 )
 

@@ -7,7 +7,7 @@ time (
 NEWR=$(mktemp -d -t hook-XXXXXXXXXX)
 OUTPUT_BASE=$(mktemp -d -t hook-base-XXXXXXXXXX)
 
-BAZEL="bazel-7.1.1 --output_base=$OUTPUT_BASE --nosystem_rc"
+BAZEL="bazel --output_base=$OUTPUT_BASE --nosystem_rc"
 TESTS=(
   ...
 )

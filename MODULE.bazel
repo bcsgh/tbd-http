@@ -1,0 +1,61 @@
+module(
+    name = "tbd_server",
+)
+
+bazel_dep(
+    name = "abseil-cpp",
+    version = "20250127.0",
+)
+bazel_dep(
+    name = "bazel_skylib",
+    version = "1.7.1",
+)
+bazel_dep(
+    name = "com_github_bcsgh_cc_embed_data",
+    version = "0.0.3",
+)
+bazel_dep(
+    name = "com_github_bcsgh_tbd",
+    version = "0.0.1",
+)
+
+bazel_dep(
+    name = "com_github_bcsgh_test_base",
+    version = "0.0.1",
+    dev_dependency = True,
+)
+
+bazel_dep(
+    name = "com_github_etr_libhttpserver",
+    version = "0.19.0",
+)
+
+bazel_dep(
+    name = "googletest",
+    version = "1.16.0",
+    dev_dependency = True,
+)
+
+bazel_dep(
+    name = "jsoncpp",
+    version = "1.9.6",
+)
+bazel_dep(
+    name = "rules_oci",
+    version = "2.2.0",
+)
+bazel_dep(
+    name = "rules_pkg",
+    version = "1.0.1",
+)
+
+##############################
+oci = use_extension("@rules_oci//oci:extensions.bzl", "oci")
+oci.pull(
+    name = "ubuntu_22_04",
+    # https://gallery.ecr.aws/docker/library/ubuntu
+    digest = "sha256:c9cf959fd83770dfdefd8fb42cfef0761432af36a764c077aed54bbc5bb25368",
+    image = "public.ecr.aws/docker/library/ubuntu",  #:22.04",
+    platforms = ["linux/amd64"],
+)
+use_repo(oci, "ubuntu_22_04")

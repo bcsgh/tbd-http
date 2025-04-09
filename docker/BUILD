@@ -1,6 +1,6 @@
-load("@rules_oci//oci:defs.bzl", "oci_image", "oci_tarball")
-load("@rules_pkg//:pkg.bzl", "pkg_tar")
 load("@bazel_skylib//rules:expand_template.bzl", "expand_template")
+load("@rules_oci//oci:defs.bzl", "oci_image", "oci_load")
+load("@rules_pkg//:pkg.bzl", "pkg_tar")
 load(":env.bzl", "env")
 
 # bazel run //docker:tbd_http_local
@@ -8,6 +8,7 @@ load(":env.bzl", "env")
 # See //docker/docker-compose.yml.tpl for pushing.
 
 IMAGE = "local/docker:tbd_http"
+
 ENV = {
     "PORT_HTTP": "8080",
     "IMAGE": IMAGE,
@@ -21,17 +22,15 @@ pkg_tar(
 
 oci_image(
     name = "tbd_http",
-    base = "@ubuntu_20_04//:ubuntu_20_04",
-    tars = [
-        ":tbd_http_tar",
-    ],
+    base = "@ubuntu_22_04",
     entrypoint = env(ENV, [
       "/server",
-      "--http_port={PORT_HTTP}"
+      "--http_port={PORT_HTTP}",
     ]),
+    tars = [":tbd_http_tar"],
 )
 
-oci_tarball(
+oci_load(
     name = "tbd_http_local",
     image = ":tbd_http",
     repo_tags = [IMAGE],
@@ -40,10 +39,10 @@ oci_tarball(
 #############################################
 expand_template(
     name = "docker-compose",
-    template = "docker-compose.yml.tpl",
     out = "docker-compose.yml",
     substitutions = dict([
       ("{%s}" % k, v)
       for k,v in ENV.items()
     ]),
+    template = "docker-compose.yml.tpl",
 )
