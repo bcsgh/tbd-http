@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "declaration": true,
+    "target": "ES2021",
+    "strict": true,
+    "strictNullChecks": true,
+    "paths": {
+      //"@//server/ui/*": ["../../server/ui/*"],
+    },
+    "lib": [
+      "es2021",
+      "DOM.Iterable",
+      "dom"
+    ]
+  }
+}

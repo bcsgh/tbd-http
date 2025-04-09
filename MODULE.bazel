@@ -7,6 +7,22 @@ bazel_dep(
     version = "20250127.0",
 )
 bazel_dep(
+    name = "aspect_rules_esbuild",
+    version = "0.21.0",
+)
+bazel_dep(
+    name = "aspect_rules_js",
+    version = "2.2.0",
+)
+bazel_dep(
+    name = "aspect_rules_terser",
+    version = "2.0.0",
+)
+bazel_dep(
+    name = "aspect_rules_ts",
+    version = "3.5.0",
+)
+bazel_dep(
     name = "bazel_skylib",
     version = "1.7.1",
 )
@@ -59,3 +75,33 @@ oci.pull(
     platforms = ["linux/amd64"],
 )
 use_repo(oci, "ubuntu_22_04")
+
+##############################
+PROJECTS = {
+    "npm_typescript_app": "//server/ui:package.json",
+}
+
+EXT = dict([
+    (
+        k,
+        use_extension("@aspect_rules_ts//ts:extensions.bzl", "ext"),
+    )
+    for k in PROJECTS.keys()
+])
+
+[(
+    EXT[k].deps(
+        name = k,
+        ts_version_from = v,
+    ),
+    use_repo(EXT[k], k),
+) for k, v in PROJECTS.items()]
+
+npm = use_extension("@aspect_rules_js//npm:extensions.bzl", "npm")  # toolchain
+npm.npm_translate_lock(
+    name = "npm",
+    data = [":package.json"],
+    pnpm_lock = "//:pnpm-lock.yaml",
+    update_pnpm_lock = True,
+)
+use_repo(npm, "npm")

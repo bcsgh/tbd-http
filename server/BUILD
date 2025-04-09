@@ -32,6 +32,10 @@ cc_library(
         "tbd_impl.h",
     ],
     hdrs = ["tbd.h"],
+    local_defines = select({
+        "//:debug_build": ["APP_JS=server_ui_app_bundel_js"],
+        "//conditions:default": ["APP_JS=server_ui_app_min_js"],
+    }),
     deps = [
         ":static_embed",
         "@abseil-cpp//absl/flags:flag",
@@ -61,8 +65,8 @@ cc_test(
 cc_embed_data(
     name = "static_embed",
     srcs = [
-        "main.html",
-        "tbd_main_js.js",
+        "//server/ui:main.html",
+        "//server/ui:app_bin",
     ],
     namespace = "tbd_server",
 )

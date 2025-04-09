@@ -186,8 +186,8 @@ std::string PreambleUnits() {
 }  // namespace impl
 
 TbdServer::Impl::Impl() :
-    html(std::string{server_main_html()}, "text/html"),
-    js(std::string{server_tbd_main_js_js()}, "text/javascript"),
+    html(std::string{server_ui_main_html()}, "text/html"),
+    js(std::string{APP_JS()}, "text/javascript"),
     units(impl::PreambleUnits(), "application/json"),
     preamble(std::string{::tbd_preamble_tbd()}, "text/x.tbd") {}
 
