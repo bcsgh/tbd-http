@@ -15,10 +15,14 @@ TESTS=(
 # Create a "clean" client.
 cd "$(git rev-parse --show-toplevel)"  # Go to the top
 git checkout-index --prefix="${NEWR}/" -a
+
+if [ -e .bazelrc.private ] ;
+then
+  cp .bazelrc.private ${NEWR}/
+fi
+
 cd "$NEWR"
 
-echo common --noincompatible_sandbox_hermetic_tmp  >> .bazelrc  # See https://github.com/bazelbuild/bazel/issues/20515
-echo build --spawn_strategy=local >> .bazelrc # https://github.com/bazelbuild/bazel/issues/20408
 if $BAZEL test --config=ci -k -- "${TESTS[@]}";
 then
   $BAZEL clean --expunge
