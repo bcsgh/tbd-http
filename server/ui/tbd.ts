@@ -68,8 +68,8 @@ async function ProcessUnits(response: Response, output: HTMLPreElement) {
   th.appendChild(document.createElement("td")).innerText = "cd";
 
   const json = await response.json();
-  const /** @type{Object<string, !Array<!string>>}*/ classes = json["types"];
-  const /** @type{Object<string, !Object<string, !number>>}*/ units = json["units"];
+  const classes = json["types"];
+  const units = json["units"];
 
   // Build body.
   let tb = table.appendChild(document.createElement("tbody"));
